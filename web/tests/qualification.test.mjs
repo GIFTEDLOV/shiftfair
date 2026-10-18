@@ -1,10 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { webcrypto } from 'node:crypto';
-import { assessReceipt, canPerform, CASE_REGISTRY_PAGE_SIZE, expectedStatusAfterAction, shouldCancelRegistryRead, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
+import { assessReceipt, canPerform, CASE_REGISTRY_PAGE_SIZE, expectedStatusAfterAction, matchesExpectedStatus, shouldCancelRegistryRead, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
 const actorA='0x'+'a'.repeat(40), actorB='0x'+'b'.repeat(40), attestor='0x'+'c'.repeat(40);
 test('every signed lifecycle action has a canonical post-transaction status, including counterparty consent',()=>{
  assert.deepEqual(['create_case','consent','freeze','submit_evidence','attest_evidence','adjudicate','challenge','finalize_case'].map(expectedStatusAfterAction),['DRAFT','DRAFT','FROZEN','EVIDENCE_LOCKED','ATTESTED','ASSESSED','CHALLENGED','FINALIZED']);
+ assert.equal(matchesExpectedStatus('create_case','DRAFT'),true);
+ assert.equal(matchesExpectedStatus('consent','DRAFT'),true);
+ assert.equal(matchesExpectedStatus('create_case','ASSESSED'),false);
+ assert.equal(matchesExpectedStatus('unknown_action','DRAFT'),false);
  assert.equal(expectedStatusAfterAction('unknown_action'),null);
 });
 test('canonical registry pages stay within RPC limits and stale reads stop before wallet actions',()=>{

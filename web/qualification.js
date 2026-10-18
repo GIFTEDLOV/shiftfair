@@ -28,6 +28,7 @@ const EXPECTED_STATUS_BY_ACTION=Object.freeze({
   finalize_case:'FINALIZED'
 });
 export function expectedStatusAfterAction(action){return EXPECTED_STATUS_BY_ACTION[action]||null;}
+export function matchesExpectedStatus(action,status){const expected=expectedStatusAfterAction(action);return expected!==null&&expected===status;}
 export function assessReceipt(tx,action){
   const phase=tx?.statusName??tx?.status_name;
   const consensus=tx?.resultName??tx?.result_name;
