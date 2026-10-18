@@ -1,28 +1,30 @@
-# Security model — ShiftFair
+# Security and threat model ? ShiftFair
 
-## Roles and transitions
+## Scope and result
 
-Creator and counterparty are distinct; a third distinct attestor wallet is nominated at case creation. Consent precedes rule freezing. Later operations enforce roles, state and deadlines. The stored deployment owner has no privileged case-transition path. Case IDs are unique; transition gates and challenge slots prevent action replay.
+This review covers `contracts/shiftfair.py`, the public ABI, GenVM integration, state transitions, evidence and history, app bindings where applicable, regression tests, and recorded live execution. No unresolved Critical or High severity finding was identified in the release audit or the passing exact-head qualification workflow. This is not a formal proof or legal opinion.
 
-## Provenance and data integrity
+## Controls
 
-Rule, evidence and attestation values are hash-bound. Address arguments handle both SDK strings and typed `Address` objects, avoiding the historical `.as_hex` string failure. Semantic history has at most two rounds; each canonical JSON entry has a SHA-256 hash linked to the previous entry. `get_case_ids_page` caps each page at 100.
+- **Three-party separation:** claimant/creator, counterparty/recipient, and designated attestor are distinct; unauthorized and forged attestations are rejected.
+- **Frozen policy:** contract terms and bounded parameters cannot be changed by semantic model output after freeze.
+- **Semantic boundary:** untrusted evidence and both parties' challenge text are data, not instructions. The nondeterministic evaluator has a fixed contract-owned instruction and must return a strict bounded schema.
+- **Consensus disagreement:** disagreement, malformed output, or inconclusive predicates do not silently become approval.
+- **Deadlines:** contract transaction time is authoritative for consent, challenges, and finalization windows; browser time is advisory only.
+- **Integrity and replay:** evidence digests, case identifiers, duplicate references, and append-only hash-linked history are checked. Address helpers accept the SDK's serialized strings and address objects, covering the prior `'str' object has no attribute 'as_hex'` regression.
+- **Bounded work:** public registry reads use fixed-size pages. Arithmetic uses bounded integers; no external contract calls, token transfers, or payout path exists, so EVM reentrancy is not applicable.
+- **Minute arithmetic:** requested, policy, provisional and final minutes are capped; finalization preserves the adjudicated provisional amount.
 
-## Intelligent-contract execution
 
-The semantic evaluation executes inside `gl.vm.run_nondet_unsafe`. Validators independently rerun the bounded classification and compare the strict boolean vector. Untrusted evidence and challenge text are delimited as data and cannot set actors, terms, deadlines, balances or amounts. The deterministic contract maps the vector to its verdict. Missing evidence becomes an explicit inconclusive/review result; disagreement reverts the update. Challenge text is included in round two; each party has one slot, and the other party receives up to 24 hours to respond after the first challenge.
+## GenLayer behavior
 
-## Deterministic and economic controls
+The contract executes semantic evaluation through GenLayer's supported nondeterministic computation path. Validators independently execute the necessary semantic decision before consensus state changes. Contract code validates the schema and derives the allowed outcome; model output cannot select actors, deadlines, money, or rules. See the live receipt evidence and `gl.vm.run_nondet_unsafe` implementation.
 
-GenVM transaction-context time governs deadlines. Frozen terms and actor roles cannot be changed by model output. Invoice amounts/rates and ShiftFair minutes are capped; integer arithmetic is deterministic. No contract makes external calls, receives payable value or transfers assets, so there is no callback reentrancy or settlement path.
+## Explicit limitations and trust assumptions
 
-## Residual risks
-
-- A signature shows control of the agreed wallet; it does not authenticate a real-world issuer or prove document/physical facts.
-- Models and validators are external execution assumptions; low evidence or disagreement is not approval.
-- Public creation is unbounded over contract lifetime; pagination bounds each read, but storage and the legacy all-ID view can grow.
-- Amounts/minutes are determinations only and are not paid by this contract.
-- The deployed browser app is older than `web/`, read-only, and still has a mobile overflow. `RELEASE_QUALIFIED=false` until funded signed E2E and production redeploy.
-- During release research, the public Studio explorer transaction API response included validator `node_config` values labelled as private keys. Raw responses were not saved or published; this project does not call that API. This is an external issue and has not been reported through an authorized channel in this work session.
-
-`tests/` is a mocked GenLayer regression harness, not live execution. `scripts/verify-live.mjs` performs read-only source, ABI, receipt, state and history checks.
+- A signature and attestation record prove that the nominated on-chain wallet signed the agreed digest. They do **not** independently prove the real-world issuer's identity or document truth.
+- Qualification data are synthetic and do not establish a real notice, invoice, delivery, shift, employee, or event.
+- These contracts record determinations. They do not authenticate real-world identities or execute legal judgments, invoice payments, parcel refunds, or wages.
+- Case storage and append-only history grow over time. Registry access is paginated; the contracts provide no pruning/deletion mechanism.
+- Semantic model/provider availability and Studionet RPC availability are external dependencies. The public UI must surface failures rather than invent data.
+- During this release check the public Studionet endpoint returned its 500 requests/hour rate limit for registry reads; wallet E2E and independent lifecycle verification passed, while the registry retry remains to be repeated after quota reset.

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-18T22:57:55.935Z",
+  "verification": "independent post-run GenLayerJS 1.1.8 Studionet read",
+  "app": "ShiftFair",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+  "receiptCount": 10,
+  "receipts": [
+    {
+      "action": "create_case",
+      "hash": "0xe67bbcd1a1fead197f39bacf1132c891f1cc734eb65fe84f894703bc36ee8bd3",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "consent",
+      "hash": "0x0386e0f40869b6890e18923668fce7cf8fea4e6d69eebc37210e3e64f6b63618",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "freeze",
+      "hash": "0xa09aba490309e989650fd5403cff17b26ab6c347af29c605c5ad8276a6ed4299",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "submit_evidence",
+      "hash": "0xa104a9c1bdc42c48cc97529ae45b83ea0149420a33e4bc121613692c61a097e9",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "attest_evidence",
+      "hash": "0xe29ea35f6965c86c6ddb647a8a8f8b3449029efdf13394609caf29edb20bb8c1",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "adjudicate",
+      "hash": "0xbb0cc71a789d856eceddddd3e058a765829ab6b3aa317b0ae6d571c1bf77fa3c",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "challenge",
+      "hash": "0x6fdd51dde49a550389af65f8a2826a22bbfa9cf5cfc17ccdbe4e5c72790d6327",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "challenge",
+      "hash": "0x52d674302464c5a13d9a4407c265068de050d9a0e0ebc49b0f9a786f20591221",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "adjudicate",
+      "hash": "0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    {
+      "action": "finalize_case",
+      "hash": "0x8cbf78018d8596f84c4cded573bc063ce5d6ebf2c7cc68931a9b467a4bd174bc",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    }
+  ],
+  "canonical": {
+    "status": "FINALIZED",
+    "verdict": "REVIEW_REQUIRED",
+    "round": 2,
+    "challengeCount": 2,
+    "historyEntries": 2,
+    "creator": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501",
+    "recipient": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+    "attestor": "0x475dd2a00a710ef35f71bf5c2f79b52d2d757f88",
+    "finalizedAt": 1792364224
+  },
+  "syntheticQualificationOnly": true,
+  "privateKeysPersisted": false
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-18T22:41:21.060Z",
+  "verification": "read-only reconciliation of the exact saved broadcast hash",
+  "app": "ShiftFair",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+  "action": "adjudicate",
+  "hash": "0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a",
+  "receiptRead": {
+    "status": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "executionResult": null,
+    "assessment": "PASS",
+    "leaderExecutions": [
+      {
+        "execution_result": "SUCCESS",
+        "stderr": ""
+      },
+      {
+        "execution_result": "SUCCESS",
+        "stderr": ""
+      }
+    ],
+    "validatorCount": 4
+  },
+  "canonicalRead": {
+    "status": "ASSESSED",
+    "round": 2,
+    "verdict": "REVIEW_REQUIRED",
+    "challengeCount": 2,
+    "historyEntries": 2,
+    "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+    "finalizedAt": 0
+  }
+}

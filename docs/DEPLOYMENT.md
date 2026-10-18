@@ -1,9 +1,52 @@
-# Deployment and source provenance
+# Deployment and verification
 
-Existing deployment: [0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd), GenLayer Studionet chain 61999, RPC `https://studio.genlayer.com/api`. GenLayerJS 1.1.8 `getContractCode` bytes match `contracts/shiftfair.py` at SHA-256 `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`; the deployed ABI equals the schema generated from that file at SHA-256 `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`. No contract replacement was required.
+## Contract
 
-The original workflow [39138161003](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138161003) failed in its later live qualification step after deployment and actual-byte verification succeeded. Do not call that workflow fully passed. The recorded live case and sanitized transaction/state evidence are in `evidence/shiftfair-live.json`.
+- Network: GenLayer Studionet, chain ID `61999`
+- RPC: `https://studio.genlayer.com/api`
+- Contract: [0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd)
+- Deployed-source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`
+- ABI schema SHA-256: `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`
+- Source parity: exact `getContractCode` byte match with `contracts/shiftfair.py`, verified using GenLayerJS 1.1.8.
+- The existing verified V4 deployment is preserved. No replacement deployment was made.
 
-Production URL: https://shiftfair-genlayer.vercel.app. Current Vercel deployment `dpl_7WCZW6iCFdBggb6fp73BsJxswizo` is Ready but serves the earlier read-only bundle. Browser inspection confirms live canonical records and the correct address; mobile overflows. The updated source passed local Chromium with actual Studionet read-through and 390 px/desktop checks, but is not deployed. It remains locked until a funded ephemeral-signer browser transaction proves GenVM success and canonical state, then deployment smoke tests pass.
+## Live evidence
 
-`npm run verify:live` is read-only: it hashes deployed bytes, compares ABI schemas, inspects recorded semantic/finalization receipts, reads canonical state and verifies history. It does not broadcast. Any replacement deployment requires a documented blocker, new address, byte/ABI verification, fresh lifecycle qualification, frontend binding update and exact-release CI.
+- Historic qualification case `GLV4-shiftfair-39138804500` finalized `REVIEW_REQUIRED`; details and transaction hashes are in the checked-in evidence.
+- Qualification Actions: [run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
+- Latest exact-main qualification CI before release preparation: [run 39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293).
+
+## Production application
+
+- Alias: https://shiftfair-genlayer.vercel.app
+- Current Vercel production deployment: `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW`
+- Deployment URL: https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app
+- Runtime config binds chain `61999`, contract `0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd`, and the SHA-256 above. Wallet writes are enabled only after real signed-browser qualification.
+- The browser test suite covers desktop and 390 px Chromium, account/network changes, rejection, duplicate-write prevention, exact transaction recovery, successful GenVM execution, and canonical state readback.
+- Registry endpoint limitation observed 2026-10-18 22:58 UTC: Studionet returned `Rate limit exceeded: 500 requests per hour`; the production UI correctly shows a read failure and no synthetic fallback. Retry registry verification after the quota window resets.
+
+
+## Verifier
+
+`npm run verify:live` is read-only: it retrieves deployed bytes, checks the expected hash and ABI schema, checks receipt execution details, and reads canonical case state and history. It does not broadcast transactions. The signed browser lifecycle scripts perform writes only when explicitly guarded and never retry an uncertain broadcast.
+
+## Reproduction
+
+```powershell
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+python -m genvm_linter.cli lint contracts/shiftfair.py
+npm ci
+npm run verify:live
+```
+
+```powershell
+cd web
+npm ci
+npm run check
+npm test
+npm run build
+$env:APP_URL='https://shiftfair-genlayer.vercel.app'
+npm run test:browser
+npm run test:registry-browser
+```

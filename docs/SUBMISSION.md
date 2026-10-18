@@ -1,4 +1,4 @@
-# GenLayer submission dossier — ShiftFair
+# GenLayer submission dossier ? ShiftFair
 
 ## Project name
 
@@ -10,58 +10,70 @@ Resolve shift and overtime eligibility from frozen work rules and attested evide
 
 ## Detailed description
 
-ShiftFair is a full GenLayer application for shift changes and overtime claims. Parties freeze a written work rule, lock evidence and nominate a distinct attestor. The app reads canonical claim pages and history, and supports participation, adjudication, challenges and finalization. Requested and approved minutes remain bounded by immutable policy parameters.
+ShiftFair supports participation, frozen work rules, attendance evidence, a distinct attestor, semantic adjudication, two-party challenges, second-round deliberation, and finalization. The production app reads a paged canonical case registry and supports wallet-validated actions with transaction receipt and canonical state reconciliation. Requested, provisional and final minutes are capped by contract rules.
 
 ## Problem solved
 
-Shift decisions mix natural-language work rules, supervisor authorization, attendance evidence and capped overtime arithmetic.
+Shift decisions combine written work rules, supervisor authorization, attendance evidence and capped overtime arithmetic.
 
 ## Why this requires a GenLayer Intelligent Contract
 
-Independent semantic validators assess authorization, attendance and evidence sufficiency against frozen text. Deterministic arithmetic then computes eligible minutes; an ordinary workflow cannot credibly perform both tasks.
+Validators independently assess authorization and attendance semantics against frozen work rules. The contract then applies deterministic capped calculations; a deterministic workflow cannot decide whether the real-world record satisfies natural-language policy.
 
 ## Genuine semantic-consensus behavior
 
-Leader and validators independently classify supervisor_authorized, attendance_matches_shift and evidence_sufficient inside GenLayer nondeterministic execution. The response schema is exact. The contract caps requested/policy minutes and derives provisional/final results deterministically; disagreement cannot become approval.
+Leader and validators independently classify supervisor_authorized, attendance_matches_shift and evidence_sufficient in gl.vm.run_nondet_unsafe. The strict vector is checked; contract arithmetic caps policy/requested minutes and derives a provisional result. Challenges enter round two; disagreement cannot silently approve.
 
-## GitHub repository URL
+The leader and validators independently execute the semantic evaluation. The result is schema-validated and contract code alone maps it to permitted outcomes. Evidence and challenge text are untrusted input. Disagreement and invalid output cannot silently become approval. Challenge periods and finalization use contract transaction time.
 
-[https://github.com/GIFTEDLOV/shiftfair](https://github.com/GIFTEDLOV/shiftfair)
+## GitHub repository
 
-## Production app URL
+https://github.com/GIFTEDLOV/shiftfair
+
+## Production app
 
 https://shiftfair-genlayer.vercel.app
 
 ## Studionet deployment
 
-- Chain 61999, RPC `https://studio.genlayer.com/api`
+- Network: GenLayer Studionet
+- Chain ID: `61999`
+- Canonical RPC: `https://studio.genlayer.com/api`
 - Contract: [0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd)
-- Explorer: [https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd)
-- Verified source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`
+- Verified deployed source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`
 - ABI schema SHA-256: `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`
 
-## Live demonstration evidence
+## Live demonstration and evidence
 
-- Case `GLV4-shiftfair-39138804500` finalized at round 2; recorded verdict **REVIEW_REQUIRED**.
-- First and second semantic transaction hashes and finalization hash are preserved in `evidence/shiftfair-live.json`.
-- [GitHub workflow run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500); exact transaction explorer links are included in the source artifact.
-- Qualification source records are synthetic and labelled; this proves GenLayer behavior, not a real-world issuer’s identity or the truth of a physical record.
+- Historic case: `GLV4-shiftfair-39138804500`; status `FINALIZED`; terminal verdict **REVIEW_REQUIRED**.
+- Qualification workflow: [run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
+- Deployed contract and source parity evidence: `evidence/live-verification.json`.
+- Production deployment: `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW`; https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app; production alias https://shiftfair-genlayer.vercel.app.
+- Signed Chromium production wallet verification: `evidence/browser-wallet-e2e.json` with real signed transaction, GenVM receipt and canonical state readback.
+- Full synthetic lifecycle: `BROWSER-LIFECYCLE-1792362857919-ShiftFair`, terminal **REVIEW_REQUIRED**. Transaction and state evidence: `evidence/signed-browser-lifecycle.json`, `evidence/signed-browser-lifecycle-readback.json`, and `evidence/signed-browser-lifecycle-resumption.json`.
+- Production registry verification: the 2026-10-18 22:58 UTC read was rejected by the public RPC's documented 500 requests/hour rate limit; the app displayed the failure without synthetic fallback. Retry after the quota window resets.
 
 ## Security and qualification summary
 
-The deployed V4 source is byte-identical to the repository source; the deployed ABI matches the locally generated schema. The local regression suite covers role separation, state transitions, source hashes, strict semantic schemas, validator disagreement, prompt injection, challenge fairness, deadlines, duplicates/replay, numeric bounds, address-serialization compatibility and history integrity. Live workflow evidence records transaction status, GenVM execution and canonical readback.
+Automated adversarial, arithmetic-bound, state-machine, schema, address-compatibility, history-integrity and wallet E2E checks passed. A genuine Chromium wallet signed transaction was reconciled against successful GenVM execution and canonical state. The synthetic full lifecycle recovered the exact saved round-two adjudication hash and then finalized REVIEW_REQUIRED after both challenges. The latest production registry attempt received the documented Studionet 500/hour rate-limit error and correctly displayed no simulated fallback.
 
-The current production UI still serves an older read-only build; `RELEASE_QUALIFIED=false`. A real funded ephemeral-signer E2E and a new production deployment are outstanding. This project is not yet fully submission-ready.
+- Exact-main CI: [workflow run 39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293) passed for the then-current main commit. Release-preparation exact-head CI and version tag CI will be linked on the repository release.
+- CI covers Python tests, GenVM lint, ABI/schema, source provenance, security analysis and app SDK/build/browser tests where applicable.
+- No unresolved Critical or High issue was identified in the release audit.
+- The historic 39138804500 workbench is not represented as a four-project PASS: NoticeClock was BLOCKED; the other three project artifacts individually report PASS. NoticeClock's later case 39142055216 passed its lifecycle, with terminal verdict INCONCLUSIVE.
 
 ## Instructions for reviewers
 
-1. Inspect `contracts/shiftfair.py` and verify its hash and ABI using `npm run verify:live`.
-2. Run `python -m pytest -q`, `python -m genvm_linter.cli lint contracts/shiftfair.py`, `npm ci`, and `npm run verify:live`.
-3. Read `evidence/shiftfair-live.json`; preserve the terminal verdict shown above.
-4. For apps, open the production URL read-only; wallet signing is deliberately disabled until its real signed-browser qualification completes.
+1. Inspect `contracts/shiftfair.py` and `release.json`.
+2. Verify the deployed source and ABI against the hashes above using the checked-in read-only verifier.
+3. Review the case and receipt evidence under `evidence/`; a FINALIZED label is not treated as proof without successful GenVM execution and canonical state readback.
+4. Open https://shiftfair-genlayer.vercel.app on Studionet chain 61999, connect a test wallet, and use the registry to inspect actual on-chain case state. If Studionet reports its rate limit, wait for its quota window and retry; the app intentionally shows an error rather than mock cases.
+5. Treat all qualification cases and source records as synthetic test inputs; do not infer real-world events.
 
 ## Known limitations and external trust assumptions
 
-Attestor wallet control does not independently authenticate employee, supervisor, payroll identity or real attendance; the contract does not pay wages. Qualification source data were synthetic. The updated repository frontend has not been deployed to the public URL.
+Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. During this verification window, Studionet RPC returned a 500-request/hour limit; registry reads fail closed without mock data. Case storage is append-only and unbounded over time.
 
-Public case creation has no global lifetime cap. Pagination limits each page to 100 records, but total storage and the legacy `get_case_ids()` view can grow. Semantic execution depends on available non-deterministic model services and validator execution; disagreement is not approval. Invoice/minute outputs do not settle assets.
+## Portal status
+
+The submission fields and evidence package are **prepared for immediate Portal entry**. The final Portal submission has **not** been made. It requires an authenticated Builder Portal session and explicit final-submit authorization; no claim of submission or steward approval is made.

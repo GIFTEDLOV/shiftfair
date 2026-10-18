@@ -1,0 +1,20 @@
+﻿{
+  "schemaVersion": 1,
+  "project": "ShiftFair",
+  "network": "GenLayer Studionet",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "productionApp": "https://shiftfair-genlayer.vercel.app",
+  "observedOn": "2026-10-18 UTC",
+  "qualification": "BLOCKED_EXTERNAL_RPC_QUOTA",
+  "operations": [
+    "contract_info",
+    "get_case_ids_page"
+  ],
+  "rpcError": "Rate limit exceeded: 500 requests per hour",
+  "uiError": "Live read failed: An unknown RPC error occurred.. There is no simulated fallback.",
+  "browserRegistrySuite": "FAIL_CLOSED_ON_RPC_ERROR",
+  "writesPerformed": false,
+  "notes": "Two production Chromium registry attempts failed before loading cases. A separate GenLayerJS 1.1.8 read reproduced the RPC quota response. The app displayed a truthful error and no synthetic records. The independent full lifecycle verifier had already confirmed all ten receipts and canonical FINALIZED/REVIEW_REQUIRED state. Retry the registry suite after the Studionet quota window resets."
+}

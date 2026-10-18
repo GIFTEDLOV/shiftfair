@@ -1,0 +1,10 @@
+{
+  "app": "shiftfair",
+  "chainId": 61999,
+  "address": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "sourceSha256": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
+  "installedSourceSha256": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
+  "sourceByteParity": "PASS",
+  "originalDeployRun": 39138161003,
+  "originalDeployCommit": "5e1d96fec2484b5fea5d1c8cfb3777ba9f51a352"
+}
