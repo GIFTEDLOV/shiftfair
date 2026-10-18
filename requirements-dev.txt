@@ -1,0 +1,3 @@
+pytest==9.0.3
+bandit==1.9.4
+genvm-linter==0.11.0

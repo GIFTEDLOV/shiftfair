@@ -1,0 +1,9 @@
+# Deployment and source provenance
+
+Existing deployment: [0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd), GenLayer Studionet chain 61999, RPC `https://studio.genlayer.com/api`. GenLayerJS 1.1.8 `getContractCode` bytes match `contracts/shiftfair.py` at SHA-256 `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`; the deployed ABI equals the schema generated from that file at SHA-256 `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`. No contract replacement was required.
+
+The original workflow [39138161003](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138161003) failed in its later live qualification step after deployment and actual-byte verification succeeded. Do not call that workflow fully passed. The recorded live case and sanitized transaction/state evidence are in `evidence/shiftfair-live.json`.
+
+Production URL: https://shiftfair-genlayer.vercel.app. Current Vercel deployment `dpl_7WCZW6iCFdBggb6fp73BsJxswizo` is Ready but serves the earlier read-only bundle. Browser inspection confirms live canonical records and the correct address; mobile overflows. The updated source passed local Chromium with actual Studionet read-through and 390 px/desktop checks, but is not deployed. It remains locked until a funded ephemeral-signer browser transaction proves GenVM success and canonical state, then deployment smoke tests pass.
+
+`npm run verify:live` is read-only: it hashes deployed bytes, compares ABI schemas, inspects recorded semantic/finalization receipts, reads canonical state and verifies history. It does not broadcast. Any replacement deployment requires a documented blocker, new address, byte/ABI verification, fresh lifecycle qualification, frontend binding update and exact-release CI.

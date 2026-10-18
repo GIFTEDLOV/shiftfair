@@ -1,0 +1,12 @@
+{
+  "name": "shiftfair",
+  "version": "4.0.0-rc.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify:live": "node scripts/verify-live.mjs"
+  },
+  "dependencies": {
+    "genlayer-js": "1.1.8"
+  }
+}

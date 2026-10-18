@@ -1,0 +1,31 @@
+{
+  "address": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "hash": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
+  "abi": "29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20",
+  "case": "GLV4-shiftfair-39138804500",
+  "verdict": "REVIEW_REQUIRED",
+  "workflow": 39138804500,
+  "semantic": [
+    "0x89ef71627d5f424a7b8e6d7183c9acd396dde86c16b9c28e17643315b324da7e",
+    "0x7f392a61387ea9c721008c8282027729c25f5f8a0d767de4c2b582cda2a109af"
+  ],
+  "final": "0x873751887a99b430e69babf8ad77aa43656e25c58937f6d0386b8eb9a710f8da",
+  "app": "https://shiftfair-genlayer.vercel.app",
+  "name": "ShiftFair",
+  "short": "Resolve shift and overtime eligibility from frozen work rules and attested evidence, with bounded deterministic minute calculations.",
+  "problem": "Shift disputes combine written policy, supervisor authorization, attendance evidence and capped overtime arithmetic.",
+  "solution": "GenLayer validators independently evaluate authorization, attendance and sufficiency; deterministic contract rules cap requested minutes and separate provisional from final results.",
+  "outcomes": "APPROVED, DENIED, or REVIEW_REQUIRED. The recorded live case finalized REVIEW_REQUIRED.",
+  "explorer": "https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "repo": "https://github.com/GIFTEDLOV/shiftfair",
+  "sourceFile": "contracts/shiftfair.py",
+  "schemaSha256": "29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20",
+  "chainId": 61999,
+  "caseStatus": "FINALIZED",
+  "workflowUrl": "https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500",
+  "sourceProvenanceRun": "https://github.com/GIFTEDLOV/driftproof/actions/runs/39138161003",
+  "firstRoundTx": "0x89ef71627d5f424a7b8e6d7183c9acd396dde86c16b9c28e17643315b324da7e",
+  "secondRoundTx": "0x7f392a61387ea9c721008c8282027729c25f5f8a0d767de4c2b582cda2a109af",
+  "finalizationTx": "0x873751887a99b430e69babf8ad77aa43656e25c58937f6d0386b8eb9a710f8da",
+  "productionQualification": "INCOMPLETE: public app remains RELEASE_QUALIFIED=false pending signed-browser live E2E; do not submit as a fully qualified frontend."
+}

@@ -1,0 +1,61 @@
+name: exact-release-qualification
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Python tools
+        run: python -m pip install -r requirements-dev.txt
+      - name: Contract regressions, evidence integrity and isolation
+        run: python -m pytest -q
+      - name: Compile and run static security analysis
+        run: |
+          python -m compileall -q contracts
+          python -m bandit -q -r contracts
+      - name: GenVM lint exact contract
+        run: python -m genvm_linter.cli lint contracts/shiftfair.py
+      - name: Install pinned GenLayerJS and verify live deployment
+        run: |
+          npm ci
+          npm run verify:live | tee live-verification.log
+      - name: Frontend checks and dependency audit
+        if: ${{ hashFiles('web/package.json') != '' }}
+        working-directory: web
+        run: |
+          npm ci
+          npm run check
+          npm test
+          npm run build
+          npm audit --audit-level=high
+      - name: Upload exact-HEAD qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-head-qualification-${{ github.sha }}
+          path: |
+            evidence/live-verification.json
+            live-verification.log
+            web/dist
+          if-no-files-found: ignore
+          retention-days: 90

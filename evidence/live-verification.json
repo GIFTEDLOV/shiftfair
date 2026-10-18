@@ -1,0 +1,43 @@
+{
+  "project": "ShiftFair",
+  "chainId": 61999,
+  "address": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "sourceSha256": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
+  "abiSchemaSha256": "29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20",
+  "sourceParity": true,
+  "abiParity": true,
+  "caseId": "GLV4-shiftfair-39138804500",
+  "status": "FINALIZED",
+  "verdict": "REVIEW_REQUIRED",
+  "round": 2,
+  "challenges": 2,
+  "historyEntries": 2,
+  "historyHashChain": true,
+  "receipts": [
+    {
+      "hash": "0x89ef71627d5f424a7b8e6d7183c9acd396dde86c16b9c28e17643315b324da7e",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "postQuorumCancellations": 0,
+      "validatorCount": 4
+    },
+    {
+      "hash": "0x7f392a61387ea9c721008c8282027729c25f5f8a0d767de4c2b582cda2a109af",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "postQuorumCancellations": 0,
+      "validatorCount": 4
+    },
+    {
+      "hash": "0x873751887a99b430e69babf8ad77aa43656e25c58937f6d0386b8eb9a710f8da",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "postQuorumCancellations": 0,
+      "validatorCount": 4
+    }
+  ],
+  "checkedAt": "2026-10-18T19:54:35.573Z"
+}

@@ -1,0 +1,1 @@
+{"name":"shiftfair-genlayer","version":"4.0.0-rc.1","type":"module","private":true,"scripts":{"build":"vite build","dev":"vite --host 0.0.0.0","check":"node --check app.js && node --check onchain.js && node --check qualification.js","test":"node --test ./tests/*.test.mjs"},"dependencies":{"genlayer-js":"1.1.8"},"devDependencies":{"vite":"^7.3.7"}}

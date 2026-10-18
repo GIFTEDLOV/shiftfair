@@ -1,0 +1,14 @@
+[project]
+name = "shiftfair"
+version = "4.0.0rc1"
+requires-python = ">=3.12,<3.14"
+description = "GenLayer Intelligent Contract release source"
+license = { file = "LICENSE" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.bandit]
+target = ["contracts"]
+exclude_dirs = ["tests"]

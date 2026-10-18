@@ -1,0 +1,20 @@
+{
+  "projectName": "ShiftFair",
+  "shortDescription": "Resolve shift and overtime eligibility from frozen work rules and attested evidence, with capped deterministic minute calculations.",
+  "detailedDescription": "ShiftFair is a full GenLayer application for shift changes and overtime claims. Parties freeze a written work rule, lock evidence and nominate a distinct attestor. The app reads canonical claim pages and history, and supports participation, adjudication, challenges and finalization. Requested and approved minutes remain bounded by immutable policy parameters.",
+  "problemSolved": "Shift decisions mix natural-language work rules, supervisor authorization, attendance evidence and capped overtime arithmetic.",
+  "whyGenLayer": "Independent semantic validators assess authorization, attendance and evidence sufficiency against frozen text. Deterministic arithmetic then computes eligible minutes; an ordinary workflow cannot credibly perform both tasks.",
+  "semanticConsensus": "Leader and validators independently classify supervisor_authorized, attendance_matches_shift and evidence_sufficient inside GenLayer nondeterministic execution. The response schema is exact. The contract caps requested/policy minutes and derives provisional/final results deterministically; disagreement cannot become approval.",
+  "githubRepository": "https://github.com/GIFTEDLOV/shiftfair",
+  "productionApp": "https://shiftfair-genlayer.vercel.app",
+  "chainId": 61999,
+  "contractAddress": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "explorerUrl": "https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "sourceSha256": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
+  "abiSchemaSha256": "29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20",
+  "qualificationCase": "GLV4-shiftfair-39138804500",
+  "terminalVerdict": "REVIEW_REQUIRED",
+  "evidencePath": "evidence/shiftfair-live.json",
+  "reviewInstructions": "Inspect production URL in read-only mode, the deployed contract, and evidence/shiftfair-live.json for GLV4-shiftfair-39138804500. The terminal verdict is REVIEW_REQUIRED. The public app remains RELEASE_QUALIFIED=false pending signed-browser qualification and redeployment.",
+  "knownLimitations": "Attestor wallet control does not independently authenticate employee, supervisor, payroll identity or real attendance; the contract does not pay wages. Qualification source data were synthetic. The updated repository frontend has not been deployed to the public URL."
+}
