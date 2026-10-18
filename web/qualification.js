@@ -29,6 +29,13 @@ const EXPECTED_STATUS_BY_ACTION=Object.freeze({
 });
 export function expectedStatusAfterAction(action){return EXPECTED_STATUS_BY_ACTION[action]||null;}
 export function matchesExpectedStatus(action,status){const expected=expectedStatusAfterAction(action);return expected!==null&&expected===status;}
+export function attachRecoveryHash(saved,candidate){
+ if(!saved||typeof saved!=='object'||Array.isArray(saved))throw new Error('No saved signed transaction intent to reconcile');
+ const supplied=String(candidate||'').trim();
+ if(saved.hash){if(supplied&&supplied.toLowerCase()!==String(saved.hash).toLowerCase())throw new Error('The supplied transaction hash does not match the saved broadcast hash');return saved;}
+ if(!/^0x[a-fA-F0-9]{64}$/.test(supplied))throw new Error('Enter the exact 32-byte transaction hash from wallet activity; no new write will be submitted');
+ return {...saved,hash:supplied,stage:'BROADCAST_NO_FINALITY'};
+}
 export function assessReceipt(tx,action){
   const phase=tx?.statusName??tx?.status_name;
   const consensus=tx?.resultName??tx?.result_name;
