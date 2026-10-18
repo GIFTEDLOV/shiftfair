@@ -77,14 +77,16 @@ export const chainUI={
     el("chain-wallet")?.addEventListener("click",async()=>{if(!window.ethereum)return report("EIP-1193 provider unavailable.","error");try{
       const accounts=await window.ethereum.request({method:"eth_requestAccounts"});
       const addr=accounts?.[0];if(!addrValid(addr))throw Error("Missing valid wallet address");
+      walletChain=parseInt(await window.ethereum.request({method:"eth_chainId"}),16);
+      if(walletChain!==61999)throw Error(`Wrong network: ${walletChain}; expected Studionet 61999`);
       wallet=createClient({chain:studionet,account:addr,provider:window.ethereum});
       await wallet.connect("studionet");
       walletChain=parseInt(await window.ethereum.request({method:"eth_chainId"}),16);
-      if(walletChain!==61999){resetWallet("Wrong chain; expected Studionet 61999.");throw Error("Wrong network: "+walletChain)}
+      if(walletChain!==61999)throw Error(`Wrong network: ${walletChain}; expected Studionet 61999`);
       walletAddress=addr;
       el("chain-wallet-info").textContent=`Wallet ${addr} · Studionet 61999 · ${QUALIFIED?"writes qualified":"writes remain locked"}`;
       report({wallet:walletAddress,chainId:walletChain,releaseQualified:QUALIFIED},"success");
-    }catch(e){resetWallet("Wallet not connected");report(message(e),"error")}});
+    }catch(e){const reason=message(e);resetWallet(reason.startsWith("Wrong network:")?"Wrong chain; expected Studionet 61999.":"Wallet not connected");report(reason,"error")}});
     window.ethereum?.on?.("accountsChanged",accounts=>{if(!accounts?.length||accounts[0]?.toLowerCase()!==walletAddress.toLowerCase())resetWallet("Wallet account changed. Reconnect required.")});
     window.ethereum?.on?.("chainChanged",chain=>{if(parseInt(chain,16)!==61999)resetWallet("Wallet network changed. Reconnect to Studionet.")});
     el("chain-execute")?.addEventListener("click",async()=>{

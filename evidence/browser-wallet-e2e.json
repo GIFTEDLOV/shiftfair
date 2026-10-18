@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-18T21:47:21.375Z",
+  "app": "ShiftFair",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "browser": "Chromium via Playwright",
+  "viewport": {
+    "desktop": "1440x900",
+    "mobile": "390px"
+  },
+  "mobile": {
+    "viewport": 390,
+    "document": 390,
+    "body": 390,
+    "navClient": 174,
+    "navScroll": 681
+  },
+  "wrongNetwork": "PASS",
+  "accountChanged": "PASS",
+  "networkChanged": "PASS",
+  "walletRejection": {
+    "status": "PASS",
+    "liveReadOnlyPreflight": "case_exists",
+    "signatureRequests": 1,
+    "broadcast": false,
+    "pendingLockReleased": true
+  },
+  "duplicateWriteLock": {
+    "status": "PASS",
+    "storedHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "additionalSignatureRequests": 0
+  },
+  "timeoutRecovery": {
+    "status": "PASS",
+    "savedBroadcastHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "firstReceiptRead": "one simulated HTTP 504",
+    "retriedAgainstLiveRPC": true,
+    "terminalPhase": "FINALIZED"
+  },
+  "signedLiveRecovery": {
+    "status": "PASS",
+    "sourceEvidence": "browser-signed-live.json",
+    "caseId": "BROWSERLIVE-1792359373769-ShiftFair",
+    "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "phase": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "successfulLeaderExecutions": 2,
+    "validatorCount": 4,
+    "canonicalStatus": "DRAFT",
+    "canonicalCreator": "0x6071c21e175e3e4d0827327284139f51a181e031"
+  },
+  "javascriptErrors": []
+}

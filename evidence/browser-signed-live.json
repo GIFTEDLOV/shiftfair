@@ -1,0 +1,78 @@
+{
+  "app": "ShiftFair",
+  "url": "http://127.0.0.1:4191",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSERLIVE-1792359373769-ShiftFair",
+  "provider": "injected EIP-1193 test provider with ephemeral viem signer",
+  "signer": "0x6071C21E175e3E4D0827327284139f51a181E031",
+  "keyPersisted": false,
+  "preflight": {
+    "functionName": "case_exists",
+    "exists": false,
+    "source": "GenLayerJS 1.1.8 LATEST_FINAL"
+  },
+  "phase": "VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE",
+  "transactions": [
+    {
+      "method": "create_case",
+      "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+      "phase": "BROADCAST_NO_FINALITY",
+      "to": "0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575",
+      "contractRecipient": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+      "nonce": 0,
+      "gas": "500000",
+      "gasPrice": "0",
+      "calldataSha256": "cd76ec3d1c0215ea80151ac28d41e792c64638e70de17523649ac4eee732b5c6",
+      "broadcastHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8"
+    }
+  ],
+  "createdAt": "2026-10-18T21:36:15.489Z",
+  "form": {
+    "creator": "0x6071C21E175e3E4D0827327284139f51a181E031",
+    "recipient": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
+    "attestor": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "allDistinct": true
+  },
+  "hashMatchesSignedPayload": true,
+  "browserOutput": "{\n  \"status\": \"VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE\",\n  \"transaction\": \"0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8\",\n  \"action\": \"create_case\",\n  \"phase\": \"FINALIZED\",\n  \"consensus\": \"MAJORITY_AGREE\",\n  \"genvmLeaders\": 2,\n  \"independentValidators\": 4,\n  \"case\": {\n    \"approved_minutes\": 0,\n    \"attestation_hash\": \"\",\n    \"attested\": false,\n    \"attestor\": \"0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n    \"challenge_hash\": \"\",\n    \"challenge_text\": \"\",\n    \"challenges\": [],\n    \"consented\": false,\n    \"created\": 1792359381,\n    \"creator\": \"0x6071c21e175e3e4d0827327284139f51a181e031\",\n    \"deadline\": 1792445779,\n    \"evidence\": \"\",\n    \"evidence_hash\": \"\",\n    \"finalized_at\": 0,\n    \"id\": \"BROWSERLIVE-1792359373769-ShiftFair\",\n    \"last_at\": 0,\n    \"max_minutes\": 90,\n    \"provisional_approved_minutes\": 0,\n    \"recipient\": \"0xabcdefabcdefabcdefabcdefabcde",
+  "browserErrors": [],
+  "receipt": {
+    "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "phase": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "successfulLeaderExecutions": 2,
+    "postQuorumCancellations": 0,
+    "validatorCount": 4,
+    "receiptStatus": "FINALIZED"
+  },
+  "state": {
+    "approved_minutes": 0,
+    "attestation_hash": "",
+    "attested": false,
+    "attestor": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "challenge_hash": "",
+    "challenge_text": "",
+    "challenges": [],
+    "consented": false,
+    "created": 1792359381,
+    "creator": "0x6071c21e175e3e4d0827327284139f51a181e031",
+    "deadline": 1792445779,
+    "evidence": "",
+    "evidence_hash": "",
+    "finalized_at": 0,
+    "id": "BROWSERLIVE-1792359373769-ShiftFair",
+    "last_at": 0,
+    "max_minutes": 90,
+    "provisional_approved_minutes": 0,
+    "recipient": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
+    "requested_minutes": 120,
+    "result": "",
+    "round": 0,
+    "rule": "Synthetic signed-browser qualification: ShiftFair draft case only; no real-world claim or settlement.",
+    "source_ref": "",
+    "status": "DRAFT"
+  },
+  "existsAfter": true,
+  "verifiedAt": "2026-10-18T21:37:04.399Z"
+}
