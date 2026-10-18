@@ -2,7 +2,7 @@ import { createClient } from 'genlayer-js';
 import { studionet } from 'genlayer-js/chains';
 import { TransactionHashVariant } from 'genlayer-js/types';
 import { chainUI } from './onchain.js';
-import { verifyAuditHistory } from './qualification.js';
+import { CASE_REGISTRY_PAGE_SIZE, shouldCancelRegistryRead, verifyAuditHistory } from './qualification.js';
 
 const APP = window.APP;
 const ADDRESS = window.CONTRACT_ADDRESS;
@@ -14,7 +14,8 @@ const shorten = value => String(value ?? '').length > 22 ? `${String(value).slic
 const stringify = obj => JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
 const validContract = /^0x[a-fA-F0-9]{40}$/.test(ADDRESS || '');
 let page = APP.view[0];
-let live = { cases: [], ids: [], total: 0, page: 0, pageSize: 100, loading: false, error: '', checkedAt: null, complete: false };
+let live = { cases: [], ids: [], total: 0, page: 0, pageSize: CASE_REGISTRY_PAGE_SIZE, loading: false, error: '', checkedAt: null, complete: false };
+let refreshGeneration=0;
 let activeSearch = '';
 const parsed = value => typeof value === 'string' ? JSON.parse(value) : value;
 const read = async (functionName, args=[]) => networkClient.readContract({ address: ADDRESS, functionName, args, transactionHashVariant: TransactionHashVariant.LATEST_FINAL });
@@ -49,24 +50,35 @@ function render(name){
 }
 async function refresh(requestedPage=live.page){
   if(!validContract){live.error='The contract address is not configured.';live.loading=false;nav(page,false);return}
+  const generation=++refreshGeneration;
+  const cancelled=()=>shouldCancelRegistryRead(generation,refreshGeneration,page);
   live.loading=true;live.error='';nav(page,false);
   try{
     const info=parsed(await read('contract_info'));
+    if(cancelled())return;
     const total=Number(info?.case_count);
     if(!Number.isSafeInteger(total)||total<0)throw new Error('Contract did not return a valid canonical case count');
-    const pageSize=100, pageCount=Math.max(1,Math.ceil(total/pageSize));
+    const pageSize=CASE_REGISTRY_PAGE_SIZE, pageCount=Math.max(1,Math.ceil(total/pageSize));
     const targetPage=Math.min(Math.max(0,requestedPage),pageCount-1);
     const ids=parsed(await read('get_case_ids_page',[targetPage*pageSize,pageSize]));
+    if(cancelled())return;
     if(!Array.isArray(ids)||ids.length>pageSize||ids.some(id=>typeof id!=='string')||new Set(ids).size!==ids.length)throw new Error('Unexpected or duplicate case page returned by contract');
     const results=[];
-    for(const id of ids){const rec=parsed(await read('get_case',[id]));if(!rec||typeof rec!=='object'||rec.id!==id)throw new Error('Canonical case ID mismatch: '+id);results.push(rec)}
+    for(const id of ids){
+      if(cancelled())return;
+      const rec=parsed(await read('get_case',[id]));
+      if(cancelled())return;
+      if(!rec||typeof rec!=='object'||rec.id!==id)throw new Error('Canonical case ID mismatch: '+id);
+      results.push(rec);
+    }
     live={cases:results,ids,total,page:targetPage,pageSize,loading:false,error:'',checkedAt:new Date().toLocaleString(),complete:(targetPage+1)*pageSize>=total};
-  }catch(e){live.loading=false;live.error=String(e?.shortMessage||e?.message||e).slice(0,350)}
+  }catch(e){if(cancelled())return;live.loading=false;live.error=String(e?.shortMessage||e?.message||e).slice(0,350)}
   // A registry read may finish while the user is signing on the separate
   // on-chain workspace. Do not replace its live form or receipt view.
   if(page!=='On-chain')nav(page,false);
 }
 function nav(name,doRefresh=true){
+  if(name==='On-chain'){refreshGeneration++;live.loading=false;}
   page=name;
   document.querySelectorAll('nav button').forEach(e=>e.classList.toggle('active',e.dataset.page===name));
   $('page-name').textContent=name;

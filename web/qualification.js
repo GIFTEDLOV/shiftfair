@@ -1,5 +1,7 @@
 const sortValue=value=>Array.isArray(value)?value.map(sortValue):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,sortValue(value[k])])):value;
 const canonicalJson=value=>JSON.stringify(sortValue(value));
+export const CASE_REGISTRY_PAGE_SIZE=10;
+export function shouldCancelRegistryRead(generation,currentGeneration,currentPage){return generation!==currentGeneration||currentPage==='On-chain';}
 async function sha256(text){const hash=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return [...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 export async function verifyAuditHistory(history,digest=sha256){
   if(!Array.isArray(history))throw new Error('Invalid audit history');

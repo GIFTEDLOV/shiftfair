@@ -60,6 +60,8 @@ jobs:
             evidence/browser-signed-live.json
             evidence/browser-wallet-e2e.json
             evidence/browser-signed-live.png
+            evidence/signed-browser-lifecycle.json
+            evidence/signed-browser-lifecycle.png
             live-verification.log
             web/dist
           if-no-files-found: ignore
