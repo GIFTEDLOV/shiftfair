@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { webcrypto } from 'node:crypto';
-import { assessReceipt, canPerform, CASE_REGISTRY_PAGE_SIZE, expectedStatusAfterAction, matchesExpectedStatus, shouldCancelRegistryRead, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
+import { assessReceipt, attachRecoveryHash, canPerform, CASE_REGISTRY_PAGE_SIZE, expectedStatusAfterAction, matchesExpectedStatus, shouldCancelRegistryRead, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
 const actorA='0x'+'a'.repeat(40), actorB='0x'+'b'.repeat(40), attestor='0x'+'c'.repeat(40);
 test('every signed lifecycle action has a canonical post-transaction status, including counterparty consent',()=>{
  assert.deepEqual(['create_case','consent','freeze','submit_evidence','attest_evidence','adjudicate','challenge','finalize_case'].map(expectedStatusAfterAction),['DRAFT','DRAFT','FROZEN','EVIDENCE_LOCKED','ATTESTED','ASSESSED','CHALLENGED','FINALIZED']);
@@ -40,6 +40,14 @@ test('browser reconciliation retries reads and checks full transaction receipt d
 });
 test('browser reconciliation rejects finality without GenVM execution evidence',async()=>{
  await assert.rejects(waitForFinalizedExecution({getTransaction:async()=>({statusName:'FINALIZED',resultName:'MAJORITY_AGREE'})},'0x'+'e'.repeat(64),'create_case',{attempts:1,interval:0}));
+});
+test('a saved unknown broadcast may attach only an exact wallet transaction hash and never overwrite a known hash',()=>{
+ const saved={action:'adjudicate',hash:''},hash='0x'+'a'.repeat(64);
+ assert.deepEqual(attachRecoveryHash(saved,hash),{action:'adjudicate',hash,stage:'BROADCAST_NO_FINALITY'});
+ assert.throws(()=>attachRecoveryHash(saved,''),/exact 32-byte transaction hash/);
+ assert.throws(()=>attachRecoveryHash(saved,'0x'+'a'.repeat(39)),/exact 32-byte transaction hash/);
+ assert.deepEqual(attachRecoveryHash({...saved,hash},hash),{...saved,hash});
+ assert.throws(()=>attachRecoveryHash({...saved,hash},'0x'+'b'.repeat(64)),/does not match the saved broadcast hash/);
 });
 test('each party may use one challenge slot; first challenge cannot preempt the response window',()=>{
  const record={status:'CHALLENGED',round:1,last_at:1000,creator:actorA,recipient:actorB,challenges:[{actor:actorA}]};

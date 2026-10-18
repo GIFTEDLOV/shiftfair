@@ -1,10 +1,9 @@
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
-import { waitForFinalizedExecution, canPerform, expectedStatusAfterAction, matchesExpectedStatus } from "./qualification.js";
+import { waitForFinalizedExecution, canPerform, expectedStatusAfterAction, matchesExpectedStatus, attachRecoveryHash } from "./qualification.js";
 
-// Separate immutable deploy-and-audit binding from UI's ability to sign.
-// RELEASE_QUALIFIED is false until independent GenVM and signed browser E2E evidence exists.
+// Keep the immutable deployment binding separate from the independently qualified write gate.
 const ADDRESS = window.CONTRACT_ADDRESS;
 const BOUND = /^0x[a-fA-F0-9]{40}$/.test(ADDRESS ?? "");
 const QUALIFIED = window.RELEASE_QUALIFIED === true;
@@ -54,7 +53,7 @@ async function afterTx(saved,{recovery=false}={}){
   txRemember(null);
   report({status:"VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE",transaction:saved.hash,action:saved.action,phase:receiptPhase(tx),consensus:receiptResult(tx),genvmLeaders:evidence.leaders.length,independentValidators:evidence.validators.length,case:state,history},"success");
 }
-async function resume(){const old=txSaved();if(!old)return report("No pending signed transaction or wallet request to resume.","error");if(!old.hash)return report("A signing request has unknown broadcast state. Inspect the connected wallet's activity and identify its exact transaction hash before making any new write.","error");try{report({status:"RECOVERING_OR_PENDING",hash:old.hash});await afterTx(old,{recovery:true})}catch(e){report(`Transaction ${old.hash} is not verified. Keep the duplicate-write lock and resume this exact hash after checking its status. ${message(e)}`,"error")}}
+async function resume(){let old=txSaved();if(!old)return report("No pending signed transaction or wallet request to resume.","error");try{old=attachRecoveryHash(old,val("chain-resume-hash"));txRemember(old);report({status:"RECOVERING_OR_PENDING",hash:old.hash});await afterTx(old,{recovery:true});if(el("chain-resume-hash"))el("chain-resume-hash").value=""}catch(e){report(`Transaction ${old.hash||"with unknown hash"} is not verified. Keep the duplicate-write lock and resume this exact hash after checking its status. ${message(e)}`,"error")}}
 export const chainUI={
   render(){const extra=window.APP.label==="SHIFTFAIR"
       ?field("requested-minutes","Requested minutes","120","number")+field("max-minutes","Policy maximum minutes","90","number"):"";
@@ -63,7 +62,7 @@ export const chainUI={
     <div class="stats"><div class="stat"><div class="eyebrow">CHAIN</div><div class="value" style="font-size:24px">61999</div><small>Studionet</small></div><div class="stat"><div class="eyebrow">CONTRACT</div><div class="value" style="font-size:24px">${BOUND?"Bound":"Unbound"}</div><small>GenLayer native</small></div><div class="stat"><div class="eyebrow">WALLET WRITES</div><div class="value" style="font-size:24px">${QUALIFIED?"Qualified":"Locked"}</div><small>Independent gate</small></div></div>
     <div class="columns"><div class="surface"><div class="section-head"><h2>Live connection</h2><span class="pill">${badge}</span></div><p class="mono" style="overflow-wrap:anywhere">${html(ADDRESS||"NO V4 ADDRESS DEPLOYED")}</p><p class="muted">RPC: https://studio.genlayer.com/api</p><div class="toolbar"><button class="cta" id="chain-inspect" ${!BOUND?'disabled':''}>Read contract metadata</button><button id="chain-wallet" class="tab">Connect wallet</button></div><p id="chain-wallet-info" class="footnote">Not connected. No wallet secrets are requested or stored.</p></div>
     <div class="surface"><div class="section-head"><h2>Live case read</h2><span class="hint">Immutable canonical state</span></div>${field("chain-case-id","Case ID","CASE-2026-001")}
-    <div class="toolbar"><button class="cta" id="chain-read" ${!BOUND?'disabled':''}>Fetch case + history</button><button class="tab" id="chain-resume">Resume submitted tx</button></div><p class="footnote">A timeout after a tx hash is returned must not be treated as failure. Resume that hash before attempting another write.</p></div></div>
+    <div class="toolbar"><button class="cta" id="chain-read" ${!BOUND?'disabled':''}>Fetch case + history</button><button class="tab" id="chain-resume">Resume submitted tx</button></div>${field("chain-resume-hash","Exact hash after wallet broadcast error","0x plus 64 hex characters")}<p class="footnote">If the wallet reports an error after broadcast, paste the exact hash from wallet activity here. The app checks its GenVM receipt and canonical state before clearing the write lock; it never resubmits this transaction.</p></div></div>
     <div class="surface" style="margin-top:18px"><div class="section-head"><h2>Signed multi-party lifecycle</h2><span class="hint">Create → consent → freeze → evidence → attest → adjudicate → challenge / finalize</span></div>
     <div class="detail"><div class="detail-box">${field("chain-recipient","Counterparty wallet","0x…")}${field("chain-attestor","Designated third-party attestor wallet","0x…")}${field("chain-rule","Frozen agreement / policy","Objective terms and burden of proof")}${field("chain-hours","Deadline in hours","24","number")}${extra}
     <p class="footnote">The designated on-chain attestor wallet must differ from both parties. The counterparty consents before freezing the rule and designated attestor. For genuine carrier, timesheet, invoice or notice evidence, use an externally verifiable source record; a hash alone is not authentication.</p></div>

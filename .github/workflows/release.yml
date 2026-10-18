@@ -61,7 +61,13 @@ jobs:
             evidence/browser-wallet-e2e.json
             evidence/browser-signed-live.png
             evidence/signed-browser-lifecycle.json
+            evidence/signed-browser-lifecycle-readback.json
+            evidence/signed-browser-lifecycle-reconciliation.json
+            evidence/signed-browser-lifecycle-resumption.json
             evidence/signed-browser-lifecycle.png
+            evidence/signed-browser-registry.json
+            evidence/signed-browser-registry.png
+            evidence/signed-browser-lifecycle-finalization-broadcast.json
             live-verification.log
             web/dist
           if-no-files-found: ignore
