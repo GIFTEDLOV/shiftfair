@@ -62,7 +62,9 @@ async function refresh(requestedPage=live.page){
     for(const id of ids){const rec=parsed(await read('get_case',[id]));if(!rec||typeof rec!=='object'||rec.id!==id)throw new Error('Canonical case ID mismatch: '+id);results.push(rec)}
     live={cases:results,ids,total,page:targetPage,pageSize,loading:false,error:'',checkedAt:new Date().toLocaleString(),complete:(targetPage+1)*pageSize>=total};
   }catch(e){live.loading=false;live.error=String(e?.shortMessage||e?.message||e).slice(0,350)}
-  nav(page,false);
+  // A registry read may finish while the user is signing on the separate
+  // on-chain workspace. Do not replace its live form or receipt view.
+  if(page!=='On-chain')nav(page,false);
 }
 function nav(name,doRefresh=true){
   page=name;

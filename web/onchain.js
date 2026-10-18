@@ -1,7 +1,7 @@
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
-import { assessReceipt, canPerform } from "./qualification.js";
+import { waitForFinalizedExecution, canPerform } from "./qualification.js";
 
 // Separate immutable deploy-and-audit binding from UI's ability to sign.
 // RELEASE_QUALIFIED is false until independent GenVM and signed browser E2E evidence exists.
@@ -32,8 +32,7 @@ const receiptPhase=tx=>tx?.statusName??tx?.status_name;
 const receiptResult=tx=>tx?.resultName??tx?.result_name;
 async function afterTx(saved){
   if(!saved.hash)throw Error("A wallet signing request has an unknown broadcast state. Do not submit again; reconcile the wallet activity before clearing this lock.");
-  const tx=await reader.waitForTransactionReceipt({hash:saved.hash,status:TransactionStatus.FINALIZED,interval:4000,retries:180});
-  const evidence=verifyReceipt(tx,saved);
+  const {transaction:tx,...evidence}=await waitForFinalizedExecution(reader,saved.hash,saved.action,{attempts:180,interval:4000});
   const state=canonical(await read("get_case",[saved.caseId]));
   const prev=saved.prev||{};
   const target={create_case:"DRAFT",freeze:"FROZEN",submit_evidence:"EVIDENCE_LOCKED",attest_evidence:"ATTESTED",adjudicate:"ASSESSED",challenge:"CHALLENGED",finalize_case:"FINALIZED"};
@@ -47,7 +46,7 @@ async function afterTx(saved){
     challenge:state.status==="CHALLENGED"&&Array.isArray(state.challenges)&&state.challenges.length===Number(prev.challenges?.length||0)+1&&state.challenges.some(x=>x.actor?.toLowerCase()===saved.wallet.toLowerCase()),
     finalize_case:state.status==="FINALIZED"&&Number(state.finalized_at)>0
   };
-  if(!target[saved.action]||checks[saved.action]!==true)throw Error("Canonical finalized state does not prove the requested transition. Case status: "+state.status);
+  if(!target[saved.action]||checks[saved.action]!==true)throw Error("Canonical finalized state does not prove the requested transition: "+JSON.stringify({action:saved.action,expected:target[saved.action]||null,check:checks[saved.action]??false,caseId:state.id||null,expectedCaseId:saved.caseId,status:state.status,creator:state.creator||null,expectedCreator:saved.wallet||null,attestor:state.attestor||null,expectedAttestor:saved.attestor||null}));
   const history=canonicalHistory(await read("get_history",[saved.caseId]));
   if(saved.action==="adjudicate"&&history.length!==state.round)throw Error("Canonical semantic history length does not match the assessed round");
   txRemember(null);

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { webcrypto } from 'node:crypto';
-import { assessReceipt, canPerform, verifyAuditHistory } from '../qualification.js';
+import { assessReceipt, canPerform, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
 const actorA='0x'+'a'.repeat(40), actorB='0x'+'b'.repeat(40), attestor='0x'+'c'.repeat(40);
 test('receipt success requires finalized majority, a successful GenVM leader, and validators for semantic decisions',()=>{
  const tx={statusName:'FINALIZED',result_name:'MAJORITY_AGREE',consensus_data:{leader_receipt:[{execution_result:'SUCCESS'},{execution_result:'ERROR',genvm_result:{stderr:'Validator execution cancelled after quorum'}}],validators:[{vote:'AGREE'}]}};
@@ -10,6 +10,22 @@ test('receipt success requires finalized majority, a successful GenVM leader, an
  assert.throws(()=>assessReceipt({...tx,consensus_data:{...tx.consensus_data,leader_receipt:[{execution_result:'ERROR'}]}},'adjudicate'));
  assert.throws(()=>assessReceipt({...tx,consensus_data:{leader_receipt:[{execution_result:'SUCCESS'}],validators:[]}},'adjudicate'));
  assert.doesNotThrow(()=>assessReceipt({...tx,consensus_data:{leader_receipt:[{execution_result:'SUCCESS'}],validators:[]}},'challenge'));
+});
+test('browser reconciliation retries reads and checks full transaction receipt details',async()=>{
+ const hash='0x'+'d'.repeat(64);
+ const transaction={statusName:'FINALIZED',resultName:'MAJORITY_AGREE',consensus_data:{leader_receipt:[{execution_result:'SUCCESS'},{execution_result:'ERROR',genvm_result:{stderr:'Validator execution cancelled after quorum'}}],validators:[{vote:'AGREE'}]}};
+ const calls=[];
+ const states=[new Error('temporary 502 gateway response'),{statusName:'ACCEPTED'},transaction];
+ const evidence=await waitForFinalizedExecution({getTransaction:async args=>{calls.push(args);const next=states.shift();if(next instanceof Error)throw next;return next}},hash,'create_case',{attempts:3,interval:0});
+ assert.deepEqual(calls,[{hash},{hash},{hash}]);
+ assert.equal(evidence.transaction,transaction);
+ assert.equal(evidence.phase,'FINALIZED');
+ assert.equal(evidence.consensus,'MAJORITY_AGREE');
+ assert.equal(evidence.leaders.length,2);
+ assert.equal(evidence.validators.length,1);
+});
+test('browser reconciliation rejects finality without GenVM execution evidence',async()=>{
+ await assert.rejects(waitForFinalizedExecution({getTransaction:async()=>({statusName:'FINALIZED',resultName:'MAJORITY_AGREE'})},'0x'+'e'.repeat(64),'create_case',{attempts:1,interval:0}));
 });
 test('each party may use one challenge slot; first challenge cannot preempt the response window',()=>{
  const record={status:'CHALLENGED',round:1,last_at:1000,creator:actorA,recipient:actorB,challenges:[{actor:actorA}]};

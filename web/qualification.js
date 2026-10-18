@@ -28,6 +28,20 @@ export function assessReceipt(tx,action){
   }
   return {phase,consensus,leaders,validators};
 }
+export async function waitForFinalizedExecution(client,hash,action,{attempts=180,interval=4000}={}){
+ if(!client||typeof client.getTransaction!=='function')throw new Error('GenLayerJS full transaction reader is unavailable');
+ let last='no receipt returned';
+ for(let attempt=0;attempt<attempts;attempt++){
+  let transaction;
+  try{transaction=await client.getTransaction({hash})}catch(error){last=String(error?.shortMessage||error?.message||error).slice(0,240);if(attempt+1<attempts)await new Promise(resolve=>setTimeout(resolve,interval));continue}
+  const phase=transaction?.statusName??transaction?.status_name;
+  if(phase==='FINALIZED')return {transaction,...assessReceipt(transaction,action)};
+  if(['CANCELED','UNDETERMINED','LEADER_TIMEOUT','VALIDATORS_TIMEOUT'].includes(phase))throw new Error(`Transaction ${hash} ended at ${phase} without successful finalization`);
+  last=`current status ${phase||'not found'}`;
+  if(attempt+1<attempts)await new Promise(resolve=>setTimeout(resolve,interval));
+ }
+ throw new Error(`Could not verify finalized transaction ${hash}: ${last}`);
+}
 export function canPerform(action,record,actor,nowSeconds){
   const who=String(actor||'').toLowerCase(), creator=String(record?.creator||'').toLowerCase(), recipient=String(record?.recipient||'').toLowerCase();
   const slots=Array.isArray(record?.challenges)?record.challenges:[];
