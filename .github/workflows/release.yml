@@ -47,6 +47,8 @@ jobs:
           npm run check
           npm test
           npm run build
+          npx playwright install --with-deps chromium
+          npm run test:browser
           npm audit --audit-level=high
       - name: Upload exact-HEAD qualification evidence
         if: always()
@@ -55,6 +57,9 @@ jobs:
           name: exact-head-qualification-${{ github.sha }}
           path: |
             evidence/live-verification.json
+            evidence/browser-signed-live.json
+            evidence/browser-wallet-e2e.json
+            evidence/browser-signed-live.png
             live-verification.log
             web/dist
           if-no-files-found: ignore
