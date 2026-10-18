@@ -1,11 +1,11 @@
 {
   "app": "ShiftFair",
-  "url": "http://127.0.0.1:4191",
+  "url": "https://shiftfair-genlayer.vercel.app",
   "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
   "chainId": 61999,
-  "caseId": "BROWSERLIVE-1792359373769-ShiftFair",
+  "caseId": "BROWSERLIVE-1792360535065-ShiftFair",
   "provider": "injected EIP-1193 test provider with ephemeral viem signer",
-  "signer": "0x6071C21E175e3E4D0827327284139f51a181E031",
+  "signer": "0xc5E1Fdd0cD1e66862B3906d7a03Ce11be389997B",
   "keyPersisted": false,
   "preflight": {
     "functionName": "case_exists",
@@ -16,35 +16,80 @@
   "transactions": [
     {
       "method": "create_case",
-      "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
-      "phase": "BROADCAST_NO_FINALITY",
+      "hash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
+      "phase": "VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE",
       "to": "0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575",
       "contractRecipient": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
       "nonce": 0,
       "gas": "500000",
       "gasPrice": "0",
-      "calldataSha256": "cd76ec3d1c0215ea80151ac28d41e792c64638e70de17523649ac4eee732b5c6",
-      "broadcastHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8"
+      "calldataSha256": "23e1cf7ea2a1b24c416831423a240d42d1b5fd7980d9e21164a014d0846f8474",
+      "broadcastHash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
+      "receipt": {
+        "hash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
+        "phase": "FINALIZED",
+        "consensus": "MAJORITY_AGREE",
+        "successfulLeaderExecutions": 1,
+        "postQuorumCancellations": 1,
+        "validatorCount": 4,
+        "receiptStatus": "FINALIZED",
+        "leaderReceiptSummary": [
+          {
+            "execution_result": "SUCCESS",
+            "stderr": ""
+          },
+          {
+            "execution_result": "ERROR",
+            "stderr": "Validator execution cancelled after quorum"
+          }
+        ]
+      }
     }
   ],
-  "createdAt": "2026-10-18T21:36:15.489Z",
+  "createdAt": "2026-10-18T21:55:36.833Z",
   "form": {
-    "creator": "0x6071C21E175e3E4D0827327284139f51a181E031",
+    "creator": "0xc5E1Fdd0cD1e66862B3906d7a03Ce11be389997B",
     "recipient": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
     "attestor": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "allDistinct": true
   },
   "hashMatchesSignedPayload": true,
-  "browserOutput": "{\n  \"status\": \"VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE\",\n  \"transaction\": \"0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8\",\n  \"action\": \"create_case\",\n  \"phase\": \"FINALIZED\",\n  \"consensus\": \"MAJORITY_AGREE\",\n  \"genvmLeaders\": 2,\n  \"independentValidators\": 4,\n  \"case\": {\n    \"approved_minutes\": 0,\n    \"attestation_hash\": \"\",\n    \"attested\": false,\n    \"attestor\": \"0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\n    \"challenge_hash\": \"\",\n    \"challenge_text\": \"\",\n    \"challenges\": [],\n    \"consented\": false,\n    \"created\": 1792359381,\n    \"creator\": \"0x6071c21e175e3e4d0827327284139f51a181e031\",\n    \"deadline\": 1792445779,\n    \"evidence\": \"\",\n    \"evidence_hash\": \"\",\n    \"finalized_at\": 0,\n    \"id\": \"BROWSERLIVE-1792359373769-ShiftFair\",\n    \"last_at\": 0,\n    \"max_minutes\": 90,\n    \"provisional_approved_minutes\": 0,\n    \"recipient\": \"0xabcdefabcdefabcdefabcdefabcde",
-  "browserErrors": [],
+  "browserOutput": "Submission was broadcast and must be reconciled before retry. An unknown RPC error occurred.",
+  "browserErrors": [
+    "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "GenLayer RPC error (gen_call): Rate limit exceeded: 30 requests per minute",
+    "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    "GenLayer RPC error (gen_call): Rate limit exceeded: 30 requests per minute"
+  ],
+  "initialUiAttempt": {
+    "output": "Submission was broadcast and must be reconciled before retry. An unknown RPC error occurred.",
+    "errors": [
+      "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+      "GenLayer RPC error (gen_call): Rate limit exceeded: 30 requests per minute",
+      "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+      "GenLayer RPC error (gen_call): Rate limit exceeded: 30 requests per minute"
+    ],
+    "note": "The initial simultaneous two-app qualification run reached the shared Studionet RPC rate limit after broadcast; the exact saved hash was independently reconciled. The public Resume flow is checked separately by browser-wallet-e2e.json."
+  },
+  "reconciliationSource": "GenLayerJS 1.1.8 getTransaction receipt plus get_case and case_exists at LATEST_FINAL",
   "receipt": {
-    "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "hash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
     "phase": "FINALIZED",
     "consensus": "MAJORITY_AGREE",
-    "successfulLeaderExecutions": 2,
-    "postQuorumCancellations": 0,
+    "successfulLeaderExecutions": 1,
+    "postQuorumCancellations": 1,
     "validatorCount": 4,
-    "receiptStatus": "FINALIZED"
+    "receiptStatus": "FINALIZED",
+    "leaderReceiptSummary": [
+      {
+        "execution_result": "SUCCESS",
+        "stderr": ""
+      },
+      {
+        "execution_result": "ERROR",
+        "stderr": "Validator execution cancelled after quorum"
+      }
+    ]
   },
   "state": {
     "approved_minutes": 0,
@@ -55,13 +100,13 @@
     "challenge_text": "",
     "challenges": [],
     "consented": false,
-    "created": 1792359381,
-    "creator": "0x6071c21e175e3e4d0827327284139f51a181e031",
-    "deadline": 1792445779,
+    "created": 1792360543,
+    "creator": "0xc5e1fdd0cd1e66862b3906d7a03ce11be389997b",
+    "deadline": 1792446941,
     "evidence": "",
     "evidence_hash": "",
     "finalized_at": 0,
-    "id": "BROWSERLIVE-1792359373769-ShiftFair",
+    "id": "BROWSERLIVE-1792360535065-ShiftFair",
     "last_at": 0,
     "max_minutes": 90,
     "provisional_approved_minutes": 0,
@@ -74,5 +119,5 @@
     "status": "DRAFT"
   },
   "existsAfter": true,
-  "verifiedAt": "2026-10-18T21:37:04.399Z"
+  "reconciledAt": "2026-10-18T21:58:55.826Z"
 }

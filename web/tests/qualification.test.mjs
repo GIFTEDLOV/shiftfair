@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { webcrypto } from 'node:crypto';
-import { assessReceipt, canPerform, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
+import { assessReceipt, canPerform, expectedStatusAfterAction, verifyAuditHistory, waitForFinalizedExecution } from '../qualification.js';
 const actorA='0x'+'a'.repeat(40), actorB='0x'+'b'.repeat(40), attestor='0x'+'c'.repeat(40);
+test('every signed lifecycle action has a canonical post-transaction status, including counterparty consent',()=>{
+ assert.deepEqual(['create_case','consent','freeze','submit_evidence','attest_evidence','adjudicate','challenge','finalize_case'].map(expectedStatusAfterAction),['DRAFT','DRAFT','FROZEN','EVIDENCE_LOCKED','ATTESTED','ASSESSED','CHALLENGED','FINALIZED']);
+ assert.equal(expectedStatusAfterAction('unknown_action'),null);
+});
 test('receipt success requires finalized majority, a successful GenVM leader, and validators for semantic decisions',()=>{
  const tx={statusName:'FINALIZED',result_name:'MAJORITY_AGREE',consensus_data:{leader_receipt:[{execution_result:'SUCCESS'},{execution_result:'ERROR',genvm_result:{stderr:'Validator execution cancelled after quorum'}}],validators:[{vote:'AGREE'}]}};
  assert.equal(assessReceipt(tx,'adjudicate').phase,'FINALIZED');

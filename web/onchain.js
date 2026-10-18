@@ -1,7 +1,7 @@
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
-import { waitForFinalizedExecution, canPerform } from "./qualification.js";
+import { waitForFinalizedExecution, canPerform, expectedStatusAfterAction } from "./qualification.js";
 
 // Separate immutable deploy-and-audit binding from UI's ability to sign.
 // RELEASE_QUALIFIED is false until independent GenVM and signed browser E2E evidence exists.
@@ -35,7 +35,7 @@ async function afterTx(saved){
   const {transaction:tx,...evidence}=await waitForFinalizedExecution(reader,saved.hash,saved.action,{attempts:180,interval:4000});
   const state=canonical(await read("get_case",[saved.caseId]));
   const prev=saved.prev||{};
-  const target={create_case:"DRAFT",freeze:"FROZEN",submit_evidence:"EVIDENCE_LOCKED",attest_evidence:"ATTESTED",adjudicate:"ASSESSED",challenge:"CHALLENGED",finalize_case:"FINALIZED"};
+  const target=expectedStatusAfterAction(saved.action);
   const checks={
     consent:state.status==="DRAFT"&&state.consented===true&&prev.consented===false,
     create_case:state.status==="DRAFT"&&state.id===saved.caseId&&state.creator?.toLowerCase()===saved.wallet.toLowerCase()&&state.attestor?.toLowerCase()===saved.attestor.toLowerCase(),

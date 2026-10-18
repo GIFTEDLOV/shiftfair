@@ -15,6 +15,17 @@ export async function verifyAuditHistory(history,digest=sha256){
   return {valid:true,entries:history.length};
 }
 function canceledAfterQuorum(receipt){return receipt?.execution_result==='ERROR'&&/validator execution cancelled after quorum/i.test(String(receipt?.genvm_result?.stderr||receipt?.error||''));}
+const EXPECTED_STATUS_BY_ACTION=Object.freeze({
+  create_case:'DRAFT',
+  consent:'DRAFT',
+  freeze:'FROZEN',
+  submit_evidence:'EVIDENCE_LOCKED',
+  attest_evidence:'ATTESTED',
+  adjudicate:'ASSESSED',
+  challenge:'CHALLENGED',
+  finalize_case:'FINALIZED'
+});
+export function expectedStatusAfterAction(action){return EXPECTED_STATUS_BY_ACTION[action]||null;}
 export function assessReceipt(tx,action){
   const phase=tx?.statusName??tx?.status_name;
   const consensus=tx?.resultName??tx?.result_name;

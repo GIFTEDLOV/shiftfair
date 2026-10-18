@@ -1,4 +1,5 @@
 **/__pycache__/
+.vercel/
 .pytest_cache/
 .venv/
 node_modules/
