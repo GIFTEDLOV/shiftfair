@@ -1,7 +1,7 @@
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
 import { TransactionHashVariant, TransactionStatus } from "genlayer-js/types";
-import { waitForFinalizedExecution, canPerform } from "./qualification.js";
+import { waitForFinalizedExecution, canPerform, expectedStatusAfterAction, matchesExpectedStatus } from "./qualification.js";
 
 // Separate immutable deploy-and-audit binding from UI's ability to sign.
 // RELEASE_QUALIFIED is false until independent GenVM and signed browser E2E evidence exists.
@@ -30,12 +30,14 @@ const txRemember=v=>{if(v)window.localStorage.setItem(currentTxStorage(),JSON.st
 const canonicalHistory=x=>{const p=typeof x==="string"?JSON.parse(x):x;if(!Array.isArray(p))throw Error("Invalid audit history");return p};
 const receiptPhase=tx=>tx?.statusName??tx?.status_name;
 const receiptResult=tx=>tx?.resultName??tx?.result_name;
-async function afterTx(saved){
+async function afterTx(saved,{recovery=false}={}){
   if(!saved.hash)throw Error("A wallet signing request has an unknown broadcast state. Do not submit again; reconcile the wallet activity before clearing this lock.");
-  const {transaction:tx,...evidence}=await waitForFinalizedExecution(reader,saved.hash,saved.action,{attempts:180,interval:4000});
+  // Recovery is deliberately bounded. A transient RPC outage should return control to the user quickly,
+  // while preserving the exact hash and duplicate-write lock for another explicit resume attempt.
+  const {transaction:tx,...evidence}=await waitForFinalizedExecution(reader,saved.hash,saved.action,{attempts:recovery?3:180,interval:4000});
   const state=canonical(await read("get_case",[saved.caseId]));
   const prev=saved.prev||{};
-  const target={create_case:"DRAFT",freeze:"FROZEN",submit_evidence:"EVIDENCE_LOCKED",attest_evidence:"ATTESTED",adjudicate:"ASSESSED",challenge:"CHALLENGED",finalize_case:"FINALIZED"};
+  const target=expectedStatusAfterAction(saved.action);
   const checks={
     consent:state.status==="DRAFT"&&state.consented===true&&prev.consented===false,
     create_case:state.status==="DRAFT"&&state.id===saved.caseId&&state.creator?.toLowerCase()===saved.wallet.toLowerCase()&&state.attestor?.toLowerCase()===saved.attestor.toLowerCase(),
@@ -46,13 +48,13 @@ async function afterTx(saved){
     challenge:state.status==="CHALLENGED"&&Array.isArray(state.challenges)&&state.challenges.length===Number(prev.challenges?.length||0)+1&&state.challenges.some(x=>x.actor?.toLowerCase()===saved.wallet.toLowerCase()),
     finalize_case:state.status==="FINALIZED"&&Number(state.finalized_at)>0
   };
-  if(!target[saved.action]||checks[saved.action]!==true)throw Error("Canonical finalized state does not prove the requested transition: "+JSON.stringify({action:saved.action,expected:target[saved.action]||null,check:checks[saved.action]??false,caseId:state.id||null,expectedCaseId:saved.caseId,status:state.status,creator:state.creator||null,expectedCreator:saved.wallet||null,attestor:state.attestor||null,expectedAttestor:saved.attestor||null}));
+  if(!matchesExpectedStatus(saved.action,state.status)||checks[saved.action]!==true)throw Error("Canonical finalized state does not prove the requested transition: "+JSON.stringify({action:saved.action,expected:target||null,check:checks[saved.action]??false,caseId:state.id||null,expectedCaseId:saved.caseId,status:state.status,creator:state.creator||null,expectedCreator:saved.wallet||null,attestor:state.attestor||null,expectedAttestor:saved.attestor||null}));
   const history=canonicalHistory(await read("get_history",[saved.caseId]));
   if(saved.action==="adjudicate"&&history.length!==state.round)throw Error("Canonical semantic history length does not match the assessed round");
   txRemember(null);
   report({status:"VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE",transaction:saved.hash,action:saved.action,phase:receiptPhase(tx),consensus:receiptResult(tx),genvmLeaders:evidence.leaders.length,independentValidators:evidence.validators.length,case:state,history},"success");
 }
-async function resume(){const old=txSaved();if(!old)return report("No pending signed transaction or wallet request to resume.","error");if(!old.hash)return report("A signing request has unknown broadcast state. Inspect the connected wallet's activity and identify its exact transaction hash before making any new write.","error");try{report({status:"RECOVERING_OR_PENDING",hash:old.hash});await afterTx(old)}catch(e){report(`Transaction ${old.hash} is not verified. Keep the duplicate-write lock and resume this exact hash after checking its status. ${message(e)}`,"error")}}
+async function resume(){const old=txSaved();if(!old)return report("No pending signed transaction or wallet request to resume.","error");if(!old.hash)return report("A signing request has unknown broadcast state. Inspect the connected wallet's activity and identify its exact transaction hash before making any new write.","error");try{report({status:"RECOVERING_OR_PENDING",hash:old.hash});await afterTx(old,{recovery:true})}catch(e){report(`Transaction ${old.hash} is not verified. Keep the duplicate-write lock and resume this exact hash after checking its status. ${message(e)}`,"error")}}
 export const chainUI={
   render(){const extra=window.APP.label==="SHIFTFAIR"
       ?field("requested-minutes","Requested minutes","120","number")+field("max-minutes","Policy maximum minutes","90","number"):"";

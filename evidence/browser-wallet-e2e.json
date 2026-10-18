@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-18T21:47:21.375Z",
+  "generatedAt": "2026-10-18T22:20:25.711Z",
   "app": "ShiftFair",
   "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
   "chainId": 61999,
@@ -28,12 +28,12 @@
   },
   "duplicateWriteLock": {
     "status": "PASS",
-    "storedHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "storedHash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
     "additionalSignatureRequests": 0
   },
   "timeoutRecovery": {
     "status": "PASS",
-    "savedBroadcastHash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "savedBroadcastHash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
     "firstReceiptRead": "one simulated HTTP 504",
     "retriedAgainstLiveRPC": true,
     "terminalPhase": "FINALIZED"
@@ -41,14 +41,14 @@
   "signedLiveRecovery": {
     "status": "PASS",
     "sourceEvidence": "browser-signed-live.json",
-    "caseId": "BROWSERLIVE-1792359373769-ShiftFair",
-    "hash": "0xa1361b32ac38c7d0b2ec98e02a33cfa19b0efa30a997acb5fd31841b487478d8",
+    "caseId": "BROWSERLIVE-1792360535065-ShiftFair",
+    "hash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
     "phase": "FINALIZED",
     "consensus": "MAJORITY_AGREE",
-    "successfulLeaderExecutions": 2,
+    "successfulLeaderExecutions": 1,
     "validatorCount": 4,
     "canonicalStatus": "DRAFT",
-    "canonicalCreator": "0x6071c21e175e3e4d0827327284139f51a181e031"
+    "canonicalCreator": "0xc5e1fdd0cd1e66862b3906d7a03ce11be389997b"
   },
   "javascriptErrors": []
 }

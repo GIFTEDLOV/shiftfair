@@ -170,7 +170,7 @@ const state={account:signedProof.form.creator,other:'0x'+'c'.repeat(40),chain:'0
  assert.equal(state.requests.filter(method=>method==='browser-signature-request').length,sendsBefore+1,'A stored broadcast hash must block duplicate signing');
  injectReceiptReadTimeout=true;
  await signingPage.locator('#chain-resume').click();
- await signingPage.waitForFunction(()=>document.querySelector('#chain-output')?.textContent.includes('VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE'),null,{timeout:120000});
+ try{await signingPage.waitForFunction(()=>document.querySelector('#chain-output')?.textContent.includes('VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE'),null,{timeout:30000})}catch(error){throw new Error(`${error.message}; receiptTimeoutInjected=${receiptReadTimeoutInjected}; RPC methods=${rpcMethods.join(', ')}; UI=${(await signingPage.locator('#chain-output').innerText()).slice(0,1200)}`)}
  assert.equal(receiptReadTimeoutInjected,true,`Receipt recovery should retry after one transient timeout; RPC methods observed: ${rpcMethods.join(', ')}`);
  const recovered=JSON.parse(await signingPage.locator('#chain-output').innerText());
  assert.equal(recovered.status,'VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE');
