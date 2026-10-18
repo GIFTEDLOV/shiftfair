@@ -1,10 +1,19 @@
-# Release qualification — ShiftFair `v4.0.0-rc.1`
+# Release qualification ? ShiftFair v4.0.0
 
-- Source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`; deployed address: `0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd`; ABI SHA-256: `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`.
-- Lifecycle case `GLV4-shiftfair-39138804500` is `FINALIZED` with verdict `REVIEW_REQUIRED`; all three transactions are recorded in `evidence/shiftfair-live.json`. Its source reference is synthetic and labeled.
-- Run 39138804500 overall failed at NoticeClock majority disagreement; the three artifacts for other projects individually recorded PASS. NoticeClock’s later run 39142055216 passed its lifecycle and ended INCONCLUSIVE.
-- Original deployment run 39138161003 concluded failure in live qualification after deployment and byte verification passed.
+**Release dossier date:** 2026-10-19
+**Release state:** Source, contract, and existing live qualification evidence are preserved. Portal dossier is prepared; final Portal submission is not made.
 
-The current production app https://shiftfair-genlayer.vercel.app serves an older read-only deployment. Updated `web/` source passed local desktop/390 px Chromium checks and real RPC reads. Production mobile still overflows. Public writes remain locked; a funded ephemeral-signer transaction, execution receipt, canonical readback, production rebuild/redeploy and production-browser recheck are outstanding.
+- Contract address: [0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd](https://explorer-studio.genlayer.com/address/0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd).
+- Deployed V4 source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`; ABI schema SHA-256: `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`.
+- Historic case `GLV4-shiftfair-39138804500`: `FINALIZED / REVIEW_REQUIRED`; its source inputs are synthetic and labeled.
+- Qualification workflow: [39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
+- Exact-main CI before release preparation: [39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293) passed.
+- Production application is `https://shiftfair-genlayer.vercel.app`; deployment `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW` is READY.
+- Signed production-browser lifecycle `BROWSER-LIFECYCLE-1792362857919-ShiftFair` finalized `REVIEW_REQUIRED`; a real signed transaction was independently checked against GenVM execution and canonical state.
+- Registry read qualification: `RATE_LIMITED`. Studionet answered the read with `Rate limit exceeded: 500 requests per hour` on 2026-10-18 22:58 UTC. The UI showed an error and used no mock fallback; repeat this read after the quota window resets.
 
-**Status:** source and contract provenance are verified; this release candidate is not yet fully submission-ready. Do not enable `RELEASE_QUALIFIED` or submit a full-application readiness claim until the app acceptance criteria pass.
+The original V4 contract deployment is preserved. No contract redeployment or source-hash substitution occurred. The release-verification artifact distinguishes successful transaction finality from successful GenVM execution and canonical state.
+
+**Submission:** prepared in [docs/SUBMISSION.md](SUBMISSION.md) and [docs/SUBMISSION_FIELDS.json](SUBMISSION_FIELDS.json); **not submitted to the Builder Portal**. No steward acceptance is claimed.
+
+See [deployment evidence](DEPLOYMENT.md), [security review](SECURITY.md), [rejection-prevention matrix](REJECTION_PREVENTION.md), and [reviewer instructions](SUBMISSION.md).

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "app": "ShiftFair",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+  "preflight": {
+    "hash": "0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a",
+    "phase": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "successfulLeaderExecutions": 2,
+    "validatorCount": 4,
+    "state": {
+      "status": "ASSESSED",
+      "round": 2,
+      "verdict": "REVIEW_REQUIRED",
+      "challengeCount": 2,
+      "historyEntries": 2,
+      "finalizedAt": 0
+    }
+  },
+  "transaction": {
+    "action": "finalize_case",
+    "signer": "0x520F36896D0021cd2cB9E6523E73B1A5341566E7",
+    "expectedHash": "0x8cbf78018d8596f84c4cded573bc063ce5d6ebf2c7cc68931a9b467a4bd174bc",
+    "hash": "0x8cbf78018d8596f84c4cded573bc063ce5d6ebf2c7cc68931a9b467a4bd174bc",
+    "hashMatchesSignedPayload": true,
+    "phase": "BROADCAST_NO_FINALITY",
+    "to": "0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575",
+    "contractRecipient": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+    "nonce": 0,
+    "calldataSha256": "e4a6631f0468b81bb857a7783bb40ba8b4511968143e608103287280462c83de"
+  },
+  "privateKeysPersisted": false,
+  "phase": "BROADCAST_NO_FINALITY"
+}

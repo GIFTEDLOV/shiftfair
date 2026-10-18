@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-18T22:57:46.585Z",
+  "app": "ShiftFair",
+  "url": "https://shiftfair-genlayer.vercel.app",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+  "preflight": {
+    "hash": "0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a",
+    "phase": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "successfulLeaderExecutions": 2,
+    "validatorCount": 4,
+    "state": {
+      "status": "ASSESSED",
+      "round": 2,
+      "verdict": "REVIEW_REQUIRED",
+      "challengeCount": 2,
+      "historyEntries": 2,
+      "finalizedAt": 0
+    }
+  },
+  "adjudicationRecovery": {
+    "action": "adjudicate",
+    "hash": "0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a",
+    "initialError": "The app did not verify adjudicate; saved hash 0x75263c9bcf89b1d12dfcace8ad7c481938e9080f016b49a11292e01244d71b7a: Submission was broadcast and must be reconciled before retry. An unknown RPC error occurred.",
+    "uiVerified": true,
+    "receipt": {
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    "canonicalState": {
+      "approved_minutes": 0,
+      "attestation_hash": "6c54794805b5ed924254a6a13a69254682700c474231fad73b7c9cb8074102a6",
+      "attested": true,
+      "attested_at": 1792363033,
+      "attestor": "0x475dd2a00a710ef35f71bf5c2f79b52d2d757f88",
+      "challenge_hash": "6f551a149c96b9ef2bb12224f080bdf19a9cdcbbdb51ad2fb080710b8a240f30",
+      "challenge_text": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501: Test challenge: confirm that the synthetic evidence supports each frozen condition.\n0x3e78e39093c228b963a3c930679da8c96e4a9e4a: Test response: independently dispute the synthetic record; no factual claim is made.",
+      "challenges": [
+        {
+          "actor": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501",
+          "hash": "cd2a6eeb98bbb503bc2aae7a5bd24835df15bf79c1ccbcf793b1c55dc73871c6",
+          "text": "Test challenge: confirm that the synthetic evidence supports each frozen condition."
+        },
+        {
+          "actor": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+          "hash": "a6f2446600b345fa3350d44bf54f24eed55ca8b56cd1b9a2ce07509750fdb6c2",
+          "text": "Test response: independently dispute the synthetic record; no factual claim is made."
+        }
+      ],
+      "consented": true,
+      "created": 1792362863,
+      "creator": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501",
+      "deadline": 1792449262,
+      "evidence": "Synthetic test evidence. It does not establish delivery, employment or issuer identity.",
+      "evidence_hash": "ce5ee850e360a685f9371d166fece619018a603d79b6993d911326872c26c897",
+      "evidence_submitter": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+      "finalized_at": 0,
+      "id": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+      "last_at": 1792363212,
+      "max_minutes": 90,
+      "provisional_approved_minutes": 0,
+      "recipient": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+      "requested_minutes": 120,
+      "result": "REVIEW_REQUIRED",
+      "round": 2,
+      "rule": "Synthetic ShiftFair qualification only: test policy and test evidence; no real-world claim or settlement.",
+      "rule_hash": "0582268a3187225e3e2e307dd3c5fc332e383fedd315a650fa97640e1d4db02c",
+      "source_ref": "SYNTHETIC-QUALIFICATION-ONLY",
+      "status": "ASSESSED"
+    }
+  },
+  "finalization": {
+    "action": "finalize_case",
+    "signer": "0x520F36896D0021cd2cB9E6523E73B1A5341566E7",
+    "expectedHash": "0x8cbf78018d8596f84c4cded573bc063ce5d6ebf2c7cc68931a9b467a4bd174bc",
+    "hash": "0x8cbf78018d8596f84c4cded573bc063ce5d6ebf2c7cc68931a9b467a4bd174bc",
+    "hashMatchesSignedPayload": true,
+    "phase": "VERIFIED_FINALIZED_EXECUTION_AND_CANONICAL_STATE",
+    "to": "0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575",
+    "contractRecipient": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+    "nonce": 0,
+    "calldataSha256": "e4a6631f0468b81bb857a7783bb40ba8b4511968143e608103287280462c83de",
+    "receipt": {
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "validatorCount": 4
+    },
+    "uiEvidence": {
+      "action": "finalize_case",
+      "phase": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "successfulLeaderExecutions": 2,
+      "independentValidators": 4,
+      "canonicalState": {
+        "approved_minutes": 0,
+        "attestation_hash": "6c54794805b5ed924254a6a13a69254682700c474231fad73b7c9cb8074102a6",
+        "attested": true,
+        "attested_at": 1792363033,
+        "attestor": "0x475dd2a00a710ef35f71bf5c2f79b52d2d757f88",
+        "challenge_hash": "6f551a149c96b9ef2bb12224f080bdf19a9cdcbbdb51ad2fb080710b8a240f30",
+        "challenge_text": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501: Test challenge: confirm that the synthetic evidence supports each frozen condition.\n0x3e78e39093c228b963a3c930679da8c96e4a9e4a: Test response: independently dispute the synthetic record; no factual claim is made.",
+        "challenges": [
+          {
+            "actor": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501",
+            "hash": "cd2a6eeb98bbb503bc2aae7a5bd24835df15bf79c1ccbcf793b1c55dc73871c6",
+            "text": "Test challenge: confirm that the synthetic evidence supports each frozen condition."
+          },
+          {
+            "actor": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+            "hash": "a6f2446600b345fa3350d44bf54f24eed55ca8b56cd1b9a2ce07509750fdb6c2",
+            "text": "Test response: independently dispute the synthetic record; no factual claim is made."
+          }
+        ],
+        "consented": true,
+        "created": 1792362863,
+        "creator": "0x1bd4f1f6b3a34bfdfeda9007dd50cf94070ed501",
+        "deadline": 1792449262,
+        "evidence": "Synthetic test evidence. It does not establish delivery, employment or issuer identity.",
+        "evidence_hash": "ce5ee850e360a685f9371d166fece619018a603d79b6993d911326872c26c897",
+        "evidence_submitter": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+        "finalized_at": 1792364224,
+        "finalized_by": "0x520f36896d0021cd2cb9e6523e73b1a5341566e7",
+        "id": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+        "last_at": 1792363212,
+        "max_minutes": 90,
+        "provisional_approved_minutes": 0,
+        "recipient": "0x3e78e39093c228b963a3c930679da8c96e4a9e4a",
+        "requested_minutes": 120,
+        "result": "REVIEW_REQUIRED",
+        "round": 2,
+        "rule": "Synthetic ShiftFair qualification only: test policy and test evidence; no real-world claim or settlement.",
+        "rule_hash": "0582268a3187225e3e2e307dd3c5fc332e383fedd315a650fa97640e1d4db02c",
+        "source_ref": "SYNTHETIC-QUALIFICATION-ONLY",
+        "status": "FINALIZED"
+      },
+      "historyEntries": 2
+    },
+    "uiVerified": true
+  },
+  "terminal": {
+    "status": "FINALIZED",
+    "verdict": "REVIEW_REQUIRED",
+    "round": 2,
+    "challengeCount": 2,
+    "historyEntries": 2
+  },
+  "privateKeysPersisted": false
+}

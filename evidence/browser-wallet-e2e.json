@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-18T22:20:25.711Z",
+  "generatedAt": "2026-10-18T22:53:14.556Z",
   "app": "ShiftFair",
   "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
   "chainId": 61999,
@@ -37,6 +37,12 @@
     "firstReceiptRead": "one simulated HTTP 504",
     "retriedAgainstLiveRPC": true,
     "terminalPhase": "FINALIZED"
+  },
+  "unknownBroadcastHashRecovery": {
+    "status": "PASS",
+    "attachedHash": "0x17d856bc79a907fd78d049e14887704f2e8fd9f49aaf8414e7181a204fea4891",
+    "additionalSignatureRequests": 0,
+    "pendingLockClearedAfterVerifiedState": true
   },
   "signedLiveRecovery": {
     "status": "PASS",
