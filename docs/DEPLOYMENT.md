@@ -14,16 +14,16 @@
 
 - Historic qualification case `GLV4-shiftfair-39138804500` finalized `REVIEW_REQUIRED`; details and transaction hashes are in the checked-in evidence.
 - Qualification Actions: [run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
-- Latest exact-main qualification CI before release preparation: [run 39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293).
+- Latest exact-main qualification CI on the release preparation baseline: [run 39175261903](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903).
 
 ## Production application
 
 - Alias: https://shiftfair-genlayer.vercel.app
-- Current Vercel production deployment: `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW`
-- Deployment URL: https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app
+- Current Vercel production deployment: `dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy`
+- Deployment URL: https://shiftfair-genlayer-i6kg3jkun-kolofahkelvin16-6437s-projects.vercel.app
 - Runtime config binds chain `61999`, contract `0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd`, and the SHA-256 above. Wallet writes are enabled only after real signed-browser qualification.
 - The browser test suite covers desktop and 390 px Chromium, account/network changes, rejection, duplicate-write prevention, exact transaction recovery, successful GenVM execution, and canonical state readback.
-- Registry endpoint limitation observed 2026-10-18 22:58 UTC: Studionet returned `Rate limit exceeded: 500 requests per hour`; the production UI correctly shows a read failure and no synthetic fallback. Retry registry verification after the quota window resets.
+- The 2026-10-18 22:58 UTC RPC rate-limit response is preserved in evidence/signed-browser-registry-rate-limit.json. The production registry browser check passed on 2026-10-19 after the quota reset; see evidence/signed-browser-registry.json and evidence/production-registry-retries.json.
 
 
 ## Verifier

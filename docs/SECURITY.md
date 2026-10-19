@@ -27,4 +27,4 @@ The contract executes semantic evaluation through GenLayer's supported nondeterm
 - These contracts record determinations. They do not authenticate real-world identities or execute legal judgments, invoice payments, parcel refunds, or wages.
 - Case storage and append-only history grow over time. Registry access is paginated; the contracts provide no pruning/deletion mechanism.
 - Semantic model/provider availability and Studionet RPC availability are external dependencies. The public UI must surface failures rather than invent data.
-- During this release check the public Studionet endpoint returned its 500 requests/hour rate limit for registry reads; wallet E2E and independent lifecycle verification passed, while the registry retry remains to be repeated after quota reset.
+- An earlier Studionet registry read hit the 500 requests/hour rate limit. After the quota reset, the 2026-10-19 production registry browser check passed. The error and recovery evidence are preserved; the application continues to fail closed without synthetic fallback.

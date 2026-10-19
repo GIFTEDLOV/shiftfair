@@ -13,21 +13,24 @@
   "terminalVerdict": "REVIEW_REQUIRED",
   "qualificationWorkflow": "https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500",
   "exactMainCi": {
-    "runId": 39173958293,
-    "url": "https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293",
-    "status": "PASS"
+    "runId": 39175261903,
+    "url": "https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903",
+    "status": "PASS",
+    "headSha": "d7aaafdbbf906506b37cb279922766687be6cbde"
   },
   "productionApp": "https://shiftfair-genlayer.vercel.app",
   "productionDeployment": {
-    "id": "dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW",
-    "url": "https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app",
+    "id": "dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy",
+    "url": "https://shiftfair-genlayer-i6kg3jkun-kolofahkelvin16-6437s-projects.vercel.app",
     "alias": "https://shiftfair-genlayer.vercel.app",
     "status": "READY"
   },
   "browserQualification": {
     "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
     "verdict": "REVIEW_REQUIRED",
-    "registryStatus": "RATE_LIMITED"
+    "registryStatus": "PASS",
+    "productionDeploymentId": "dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy",
+    "registryEvidence": "evidence/signed-browser-registry.json"
   },
   "contractSourcePath": "contracts/shiftfair.py",
   "evidence": [
@@ -36,10 +39,12 @@
     "evidence/browser-wallet-e2e.json",
     "evidence/signed-browser-lifecycle.json",
     "evidence/signed-browser-lifecycle-readback.json",
-    "evidence/signed-browser-registry-rate-limit.json"
+    "evidence/signed-browser-registry-rate-limit.json",
+    "evidence/signed-browser-registry.json",
+    "evidence/production-registry-retries.json"
   ],
   "portalSubmissionStatus": "PREPARED_NOT_SUBMITTED",
-  "knownLimitations": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. During this verification window, Studionet RPC returned a 500-request/hour limit; registry reads fail closed without mock data. Case storage is append-only and unbounded over time.",
+  "knownLimitations": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. Studionet RPC can temporarily rate-limit registry reads; the 2026-10-18 rate-limit response and 2026-10-19 successful production retry are both preserved. Case storage is append-only and unbounded over time.",
   "sourceFile": "contracts/shiftfair.py",
   "hash": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
   "schemaSha256": "29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20",
@@ -64,6 +69,7 @@
   "caseStatus": "FINALIZED",
   "workflowUrl": "https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500",
   "sourceProvenanceRun": "https://github.com/GIFTEDLOV/driftproof/actions/runs/39138161003",
-  "exactMainCiUrl": "https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293",
-  "productionQualification": "Signed browser E2E and production deployment verified. Production registry read status: RATE_LIMITED. Portal dossier prepared, not submitted."
+  "exactMainCiUrl": "https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903",
+  "productionQualification": "V4.0.0 production deployment READY; signed-browser wallet recovery and canonical registry qualification PASS on 2026-10-19 after the RPC quota reset. The earlier 500-requests/hour response is preserved. Portal dossier prepared, not submitted.",
+  "exactMainCommit": "d7aaafdbbf906506b37cb279922766687be6cbde"
 }

@@ -48,16 +48,16 @@ https://shiftfair-genlayer.vercel.app
 - Historic case: `GLV4-shiftfair-39138804500`; status `FINALIZED`; terminal verdict **REVIEW_REQUIRED**.
 - Qualification workflow: [run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
 - Deployed contract and source parity evidence: `evidence/live-verification.json`.
-- Production deployment: `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW`; https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app; production alias https://shiftfair-genlayer.vercel.app.
+- Production deployment: `dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy`; https://shiftfair-genlayer-i6kg3jkun-kolofahkelvin16-6437s-projects.vercel.app; production alias https://shiftfair-genlayer.vercel.app.
 - Signed Chromium production wallet verification: `evidence/browser-wallet-e2e.json` with real signed transaction, GenVM receipt and canonical state readback.
 - Full synthetic lifecycle: `BROWSER-LIFECYCLE-1792362857919-ShiftFair`, terminal **REVIEW_REQUIRED**. Transaction and state evidence: `evidence/signed-browser-lifecycle.json`, `evidence/signed-browser-lifecycle-readback.json`, and `evidence/signed-browser-lifecycle-resumption.json`.
-- Production registry verification: the 2026-10-18 22:58 UTC read was rejected by the public RPC's documented 500 requests/hour rate limit; the app displayed the failure without synthetic fallback. Retry after the quota window resets.
+- Production registry verification: PASS on 2026-10-19 after the earlier 500-requests/hour quota rejection. Exact-ID search, canonical FINALIZED / REVIEW_REQUIRED state, two challenges and hash-linked history passed. See evidence/signed-browser-registry.json, evidence/signed-browser-registry-rate-limit.json and evidence/production-registry-retries.json.
 
 ## Security and qualification summary
 
-Automated adversarial, arithmetic-bound, state-machine, schema, address-compatibility, history-integrity and wallet E2E checks passed. A genuine Chromium wallet signed transaction was reconciled against successful GenVM execution and canonical state. The synthetic full lifecycle recovered the exact saved round-two adjudication hash and then finalized REVIEW_REQUIRED after both challenges. The latest production registry attempt received the documented Studionet 500/hour rate-limit error and correctly displayed no simulated fallback.
+Automated adversarial, arithmetic-bound, state-machine, schema, address-compatibility, history-integrity and wallet E2E checks passed. A genuine Chromium wallet signed transaction was reconciled against successful GenVM execution and canonical state. The synthetic full lifecycle recovered the exact saved round-two adjudication hash and then finalized REVIEW_REQUIRED after both challenges. An earlier production registry attempt received the Studionet 500/hour rate-limit error and correctly displayed no simulated fallback; after the quota reset, production registry search and canonical detail passed.
 
-- Exact-main CI: [workflow run 39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293) passed for the then-current main commit. Release-preparation exact-head CI and version tag CI will be linked on the repository release.
+- Exact-main CI: [workflow run 39175261903](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903) passed for the then-current main commit. The repository Actions history and versioned release provide the exact-HEAD and version-tag qualification results.
 - CI covers Python tests, GenVM lint, ABI/schema, source provenance, security analysis and app SDK/build/browser tests where applicable.
 - No unresolved Critical or High issue was identified in the release audit.
 - The historic 39138804500 workbench is not represented as a four-project PASS: NoticeClock was BLOCKED; the other three project artifacts individually report PASS. NoticeClock's later case 39142055216 passed its lifecycle, with terminal verdict INCONCLUSIVE.

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-19T06:58:28Z",
+  "app": "ShiftFair",
+  "url": "https://shiftfair-genlayer.vercel.app",
+  "deploymentId": "dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy",
+  "chainId": 61999,
+  "writesSent": 0,
+  "attempts": [
+    {
+      "stage": "Initial parallel production registry E2E",
+      "result": "FAIL",
+      "detail": "The live UI surfaced the GenLayer SDK unknown RPC error. No mock fallback or write was used."
+    },
+    {
+      "stage": "Sequential production registry E2E",
+      "result": "FAIL",
+      "detail": "Page refresh did not settle within the browser test 60-second bound; no contract write was sent."
+    },
+    {
+      "stage": "Production browser diagnostics",
+      "result": "PASS",
+      "detail": "Live GenLayer gen_call requests returned HTTP 200; repeated registry refresh loaded all six canonical cases."
+    },
+    {
+      "stage": "Final sequential production registry E2E",
+      "result": "PASS",
+      "evidence": "evidence/signed-browser-registry.json"
+    }
+  ],
+  "finalResult": "PASS",
+  "finalEvidence": "evidence/signed-browser-registry.json"
+}

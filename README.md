@@ -26,11 +26,11 @@ Leader and validators independently classify supervisor_authorized, attendance_m
 
 - Historic case: `GLV4-shiftfair-39138804500`, terminal `REVIEW_REQUIRED`; source data is synthetic and explicitly labeled.
 - Historic qualification: [GitHub Actions run 39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
-- Project exact-head CI: [run 39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293).
+- Project exact-head CI: [run 39175261903](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903).
 - Production application: https://shiftfair-genlayer.vercel.app
-- Current production deployment: `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW` (https://shiftfair-genlayer-ma0vk8dy8-kolofahkelvin16-6437s-projects.vercel.app).
+- Current production deployment: `dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy` (https://shiftfair-genlayer-i6kg3jkun-kolofahkelvin16-6437s-projects.vercel.app).
 - Signed Chromium lifecycle: `BROWSER-LIFECYCLE-1792362857919-ShiftFair` finalized `REVIEW_REQUIRED`; see [lifecycle evidence](evidence/signed-browser-lifecycle.json), [independent receipt and state readback](evidence/signed-browser-lifecycle-readback.json), and [production browser-wallet evidence](evidence/browser-wallet-e2e.json).
-- Production registry browser check: `RATE_LIMITED`; see [registry evidence](evidence/signed-browser-registry.json) when present. The latest read received the Studionet 500-request/hour RPC quota error and no cases were fabricated.
+- Production registry browser check: PASS on 2026-10-19 after the earlier 500-requests/hour quota rejection. Exact-ID search, canonical final status, two challenges and hash-linked history passed; both the earlier error and recovery are recorded under evidence/.
 
 ## Release and submission status
 
