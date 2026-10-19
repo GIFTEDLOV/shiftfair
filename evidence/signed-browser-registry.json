@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-19T06:56:41.173Z",
+  "app": "ShiftFair",
+  "url": "https://shiftfair-genlayer.vercel.app",
+  "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
+  "chainId": 61999,
+  "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
+  "search": {
+    "page": 1,
+    "pageSize": 10,
+    "filter": "exact on-chain case ID",
+    "resultCount": 1
+  },
+  "detail": {
+    "status": "FINALIZED",
+    "verdict": "REVIEW_REQUIRED",
+    "challengeCount": 2,
+    "historyEntries": 2,
+    "historyLinks": "verified"
+  },
+  "javascriptErrors": []
+}

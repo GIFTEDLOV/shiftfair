@@ -25,20 +25,22 @@
     "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
     "terminalVerdict": "REVIEW_REQUIRED",
     "appUrl": "https://shiftfair-genlayer.vercel.app",
-    "productionDeploymentId": "dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW",
+    "productionDeploymentId": "dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy",
     "evidence": [
       "evidence/browser-wallet-e2e.json",
       "evidence/signed-browser-lifecycle.json",
       "evidence/signed-browser-lifecycle-readback.json",
       "evidence/signed-browser-lifecycle-resumption.json",
       "evidence/signed-browser-lifecycle-reconciliation.json",
-      "evidence/signed-browser-registry-rate-limit.json"
+      "evidence/signed-browser-registry.json",
+      "evidence/production-registry-retries.json"
     ],
-    "registryVerification": "RATE_LIMITED: public Studionet RPC returned 500 requests/hour during the recorded check"
+    "registryVerification": "PASS on the production alias on 2026-10-19: exact-ID search, canonical FINALIZED detail, challenge count, history entries and SHA-256 links verified.",
+    "productionDeploymentUrl": "https://shiftfair-genlayer-i6kg3jkun-kolofahkelvin16-6437s-projects.vercel.app"
   },
-  "securityAndQualificationSummary": "Automated adversarial, arithmetic-bound, state-machine, schema, address-compatibility, history-integrity and wallet E2E checks passed. A genuine Chromium wallet signed transaction was reconciled against successful GenVM execution and canonical state. The synthetic full lifecycle recovered the exact saved round-two adjudication hash and then finalized REVIEW_REQUIRED after both challenges. The latest production registry attempt received the documented Studionet 500/hour rate-limit error and correctly displayed no simulated fallback.",
-  "reviewerInstructions": "Open the production app and connect a wallet on Studionet chain 61999. Review contracts/shiftfair.py, evidence/signed-browser-lifecycle.json, evidence/signed-browser-lifecycle-readback.json, evidence/signed-browser-lifecycle-resumption.json, and the preserved registry error if the RPC quota has not reset. The browser qualification case BROWSER-LIFECYCLE-1792362857919-ShiftFair finalized REVIEW_REQUIRED; it is synthetic. The historic case GLV4-shiftfair-39138804500 also finalized REVIEW_REQUIRED.",
-  "knownLimitationsAndExternalTrustAssumptions": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. During this verification window, Studionet RPC returned a 500-request/hour limit; registry reads fail closed without mock data. Case storage is append-only and unbounded over time.",
+  "securityAndQualificationSummary": "Automated adversarial, arithmetic-bound, state-machine, schema, address-compatibility, history-integrity and wallet E2E checks passed. A genuine Chromium signed transaction was reconciled against successful GenVM execution and canonical state. The synthetic full lifecycle finalized REVIEW_REQUIRED after both challenges. Production registry search/detail on deployment dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy verified the canonical terminal state, two challenges and two hash-linked history entries. The earlier 500-request/hour rejection is preserved; the latest registry and wallet browser checks passed after the quota reset.",
+  "reviewerInstructions": "Open https://shiftfair-genlayer.vercel.app and connect a wallet on Studionet chain 61999. Review contracts/shiftfair.py, evidence/signed-browser-lifecycle.json, evidence/signed-browser-lifecycle-readback.json, evidence/signed-browser-lifecycle-resumption.json, evidence/browser-wallet-e2e.json, evidence/signed-browser-registry.json, and evidence/production-registry-retries.json. The BROWSER-LIFECYCLE-1792362857919-ShiftFair case finalized REVIEW_REQUIRED; its scenario is synthetic. The historic GLV4-shiftfair-39138804500 case also finalized REVIEW_REQUIRED. An earlier RPC quota failure is retained as evidence; the latest production registry check passed.",
+  "knownLimitationsAndExternalTrustAssumptions": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. Studionet RPC can temporarily rate-limit registry reads; the 2026-10-18 rate-limit response and 2026-10-19 successful production retry are both preserved. Case storage is append-only and unbounded over time.",
   "portalSubmissionStatus": "PREPARED_NOT_SUBMITTED",
   "whyGenLayer": "Validators independently assess authorization and attendance semantics against frozen work rules. The contract then applies deterministic capped calculations; a deterministic workflow cannot decide whether the real-world record satisfies natural-language policy.",
   "githubRepository": "https://github.com/GIFTEDLOV/shiftfair",
@@ -47,5 +49,5 @@
   "sourceSha256": "958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5",
   "qualificationCase": "GLV4-shiftfair-39138804500",
   "terminalVerdict": "REVIEW_REQUIRED",
-  "knownLimitations": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. During this verification window, Studionet RPC returned a 500-request/hour limit; registry reads fail closed without mock data. Case storage is append-only and unbounded over time."
+  "knownLimitations": "Qualification source data were synthetic. An attestor signature proves control of the nominated wallet, not employee, supervisor or payroll identity, actual attendance, or document truth. The contract does not pay wages. No employment identity oracle is connected. Studionet RPC can temporarily rate-limit registry reads; the 2026-10-18 rate-limit response and 2026-10-19 successful production retry are both preserved. Case storage is append-only and unbounded over time."
 }

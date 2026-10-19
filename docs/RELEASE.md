@@ -7,10 +7,10 @@
 - Deployed V4 source SHA-256: `958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5`; ABI schema SHA-256: `29fa8f2f2b889f08f5452de2dd06e76a349111d28801364a3bf32d85c1220e20`.
 - Historic case `GLV4-shiftfair-39138804500`: `FINALIZED / REVIEW_REQUIRED`; its source inputs are synthetic and labeled.
 - Qualification workflow: [39138804500](https://github.com/GIFTEDLOV/driftproof/actions/runs/39138804500).
-- Exact-main CI before release preparation: [39173958293](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39173958293) passed.
-- Production application is `https://shiftfair-genlayer.vercel.app`; deployment `dpl_GKPZps4G9PupyCNi9XhnMG9cqQvW` is READY.
+- Exact-main CI on the release preparation baseline: [39175261903](https://github.com/GIFTEDLOV/shiftfair/actions/runs/39175261903) passed.
+- Production application is `https://shiftfair-genlayer.vercel.app`; deployment `dpl_Dn2XLYLqNLMZpRJHSzhYMpeVQzZy` is READY.
 - Signed production-browser lifecycle `BROWSER-LIFECYCLE-1792362857919-ShiftFair` finalized `REVIEW_REQUIRED`; a real signed transaction was independently checked against GenVM execution and canonical state.
-- Registry read qualification: `RATE_LIMITED`. Studionet answered the read with `Rate limit exceeded: 500 requests per hour` on 2026-10-18 22:58 UTC. The UI showed an error and used no mock fallback; repeat this read after the quota window resets.
+- Production registry browser qualification: PASS on 2026-10-19 after the earlier 2026-10-18 500-requests/hour RPC rejection. Exact-ID search, canonical FINALIZED / REVIEW_REQUIRED detail, two challenges and two verified hash-linked history entries passed. The initial rate-limit failure and retry history are preserved in evidence/signed-browser-registry-rate-limit.json and evidence/production-registry-retries.json.
 
 The original V4 contract deployment is preserved. No contract redeployment or source-hash substitution occurred. The release-verification artifact distinguishes successful transaction finality from successful GenVM execution and canonical state.
 
