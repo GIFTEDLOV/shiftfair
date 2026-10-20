@@ -1,1 +1,180 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content="Policy-bound schedule changes and overtime evidence"/><title>SHIFTFAIR — GenLayer</title><link rel="stylesheet" href="styles.css"/></head><body><div class="layout"><aside class="sidebar"><div class="logo"><div class="logo-mark">◷</div><strong>SHIFTFAIR</strong></div><div><div class="eyebrow" style="margin:0 14px 17px">Workspace</div><nav aria-label="Primary navigation"><button aria-label="Dashboard" title="Dashboard" data-page="Dashboard"><span class="dot">◷</span><span class="nav-label">Dashboard</span></button><button aria-label="Schedule" title="Schedule" data-page="Schedule"><span class="dot">◷</span><span class="nav-label">Schedule</span></button><button aria-label="Claims" title="Claims" data-page="Claims"><span class="dot">◷</span><span class="nav-label">Claims</span></button><button aria-label="Policies" title="Policies" data-page="Policies"><span class="dot">◷</span><span class="nav-label">Policies</span></button><button aria-label="Evidence" title="Evidence" data-page="Evidence"><span class="dot">◷</span><span class="nav-label">Evidence</span></button><button aria-label="Audit" title="Audit" data-page="Audit"><span class="dot">◷</span><span class="nav-label">Audit</span></button><button aria-label="On-chain" title="On-chain" data-page="On-chain"><span class="dot">◇</span><span class="nav-label">On-chain</span></button><button aria-label="Network" title="Network" data-page="Network"><span class="dot">◷</span><span class="nav-label">Network</span></button></nav></div><div class="grow"></div><div class="side-bottom"><div class="eyebrow" style="margin-bottom:12px">Chain configuration</div><div class="network-tag"><span class="signal"></span><span>Studionet · 61999<br/><span id="write-gate-status">Wallet writes locked</span></span></div></div></aside><main class="main"><div class="top"><div class="crumb">Workspace / <b id="page-name">Overview</b></div><div class="tools"><span class="eyebrow">SANDBOX VIEW</span><div class="circle">⌕</div><div class="avatar">GL</div></div></div><div class="hero"><div><div class="eyebrow">Time-policy reconciliation</div><h1 id="hero-title"></h1><p id="hero-subtitle"></p></div><button class="cta" id="primary-action">Create shift claim →</button></div><section id="main-content" aria-live="polite"></section><footer style="margin:32px 0 15px" class="footnote">GENLAYER / SHIFTFAIR · Case details come from the deployed contract. Attestors prove signer attribution, not issuer identity or document truth.</footer></main></div><div class="modal" id="detail-modal" hidden><div class="surface" role="dialog" aria-label="Contract case detail" aria-modal="true"><button id="close-detail" class="tab" style="float:right">✕</button><div id="modal-body"></div></div></div><div class="modal" id="unavailable-modal" hidden><div class="surface" role="alertdialog" aria-modal="true"><div class="eyebrow">CANONICAL DEPLOYMENT REQUIRED</div><h2>Case writes are disabled</h2><p class="muted">The browser could not verify that write functionality is available. Review the canonical case in the On-chain workspace. Example records are never blockchain transactions.</p><button id="close-unavailable" class="cta">Understood</button></div></div><script>window.APP={tagline:'Shift policy and overtime evidence',subtitle:'Shift policy and overtime evidence',view:['Dashboard','Schedule','Claims','Policies','Evidence','Audit','Network'],label:'SHIFTFAIR'};window.CONTRACT_ADDRESS='0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd';window.CONTRACT_SOURCE_SHA256='958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5';window.RELEASE_QUALIFIED=true;document.getElementById("write-gate-status").textContent=window.RELEASE_QUALIFIED?"Wallet writes qualified":"Wallet writes locked";</script><script type="module" src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Policy-bound schedule changes and overtime evidence resolved via GenLayer Intelligent Contracts"/>
+  <title>SHIFTFAIR — GenLayer Semantic Adjudication</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Nudge-Folio Canvas Ruler -->
+  <div class="canvas-ruler" aria-hidden="true">
+    <div class="ruler-tick"><span>0</span></div>
+    <div class="ruler-tick"><span>100</span></div>
+    <div class="ruler-tick"><span>200</span></div>
+    <div class="ruler-tick"><span>300</span></div>
+    <div class="ruler-tick"><span>400</span></div>
+    <div class="ruler-tick"><span>500</span></div>
+    <div class="ruler-tick"><span>600</span></div>
+    <div class="ruler-tick"><span>700</span></div>
+    <div class="ruler-tick"><span>800</span></div>
+    <div class="ruler-tick"><span>900</span></div>
+    <div class="ruler-tick"><span>1000</span></div>
+    <div class="ruler-tick"><span>1100</span></div>
+    <div class="ruler-tick"><span>1200</span></div>
+    <div class="ruler-tick"><span>1300</span></div>
+    <div class="ruler-tick"><span>1400</span></div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-mark">◷</div>
+        <div class="logo-text">
+          <strong>SHIFTFAIR</strong>
+          <small class="version-tag">GENLAYER V4</small>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin:0 14px 17px">Workspace</div>
+        <nav aria-label="Primary navigation">
+          <button aria-label="Dashboard" title="Dashboard" data-page="Dashboard">
+            <span class="dot">◷</span><span class="nav-label">Dashboard</span>
+          </button>
+          <button aria-label="Schedule" title="Schedule" data-page="Schedule">
+            <span class="dot">◷</span><span class="nav-label">Schedule</span>
+          </button>
+          <button aria-label="Claims" title="Claims" data-page="Claims">
+            <span class="dot">◷</span><span class="nav-label">Claims</span>
+          </button>
+          <button aria-label="Policies" title="Policies" data-page="Policies">
+            <span class="dot">◷</span><span class="nav-label">Policies</span>
+          </button>
+          <button aria-label="Evidence" title="Evidence" data-page="Evidence">
+            <span class="dot">◷</span><span class="nav-label">Evidence</span>
+          </button>
+          <button aria-label="Audit" title="Audit" data-page="Audit">
+            <span class="dot">◷</span><span class="nav-label">Audit</span>
+          </button>
+          <button aria-label="On-chain" title="On-chain" data-page="On-chain">
+            <span class="dot">◇</span><span class="nav-label">On-chain</span>
+          </button>
+          <button aria-label="Network" title="Network" data-page="Network">
+            <span class="dot">◷</span><span class="nav-label">Network</span>
+          </button>
+        </nav>
+      </div>
+      <div class="grow"></div>
+      <div class="side-bottom">
+        <div class="eyebrow" style="margin-bottom:12px">Chain configuration</div>
+        <div class="network-tag" id="sidebar-network-tag">
+          <span class="signal" id="sidebar-signal"></span>
+          <span>Studionet · 61999<br/><span id="write-gate-status">Wallet writes qualified</span></span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="top">
+        <div class="crumb">Workspace / <b id="page-name">Dashboard</b></div>
+        <div class="tools" id="header-tools">
+          <div class="network-badge" id="global-network-badge" title="Target Network: GenLayer Studionet (61999)">
+            <span class="signal-dot" id="global-signal-dot"></span>
+            <span id="global-network-name">Studionet · 61999</span>
+          </div>
+          <button class="wallet-connect-btn" id="global-wallet-btn" type="button" aria-label="Connect Web3 Wallet">
+            <span class="wallet-icon">⬡</span>
+            <span id="global-wallet-label">Connect Wallet</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nudge-Folio Hero with Selection Box & Stickers -->
+      <div class="nudge-hero-container">
+        <div class="selection-box">
+          <div class="selection-tag">SHIFTFAIR · STUDIONET 61999 [SELECTION: 1280 × 640]</div>
+          <div class="selection-handle top-left"></div>
+          <div class="selection-handle top-right"></div>
+          <div class="selection-handle bottom-left"></div>
+          <div class="selection-handle bottom-right"></div>
+          
+          <!-- Angled Pastel Stickers -->
+          <div class="nudge-sticker sticker-yellow" style="top:-14px; right: 210px;">✦ GenLayer Studionet 61999</div>
+          <div class="nudge-sticker sticker-mint" style="top: -12px; right: 18px;">⚡ Multi-Validator Consensus</div>
+          <div class="nudge-sticker sticker-pink" style="bottom: -14px; left: 24px;">⏱️ Capped Shift Minutes</div>
+
+          <!-- Designer cursors -->
+          <div class="cursor-badge cursor-blue" style="top: 24px; right: 30px;">
+            <span class="cursor-pointer">▲</span> Contract: 0xdB74...03Fd
+          </div>
+          <div class="cursor-badge cursor-orange" style="bottom: 24px; right: 40px;">
+            <span class="cursor-pointer">▲</span> Consensus: MAJORITY_AGREE
+          </div>
+
+          <div class="hero">
+            <div class="hero-content">
+              <div class="eyebrow">INTELLIGENT CONTRACT POLICY ARBITRATION</div>
+              <h1 id="hero-title">Shift policy and overtime evidence</h1>
+              <p id="hero-subtitle">Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="cta" id="primary-action">Create shift claim →</button>
+              <button class="tab hero-wallet-cta" id="hero-wallet-btn">Connect Wallet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="main-content" aria-live="polite"></section>
+
+      <footer style="margin:32px 0 15px" class="footnote">
+        GENLAYER / SHIFTFAIR · Case details come from the deployed contract. Attestors prove signer attribution, not issuer identity or document truth.
+      </footer>
+    </main>
+  </div>
+
+  <!-- Global Web3 Wallet Modal -->
+  <div class="modal" id="wallet-modal" hidden>
+    <div class="surface wallet-modal-surface" role="dialog" aria-label="Web3 Wallet Details" aria-modal="true">
+      <div class="modal-header">
+        <div class="eyebrow">WEB3 WALLET</div>
+        <button id="close-wallet-modal" class="tab close-btn">✕</button>
+      </div>
+      <div id="wallet-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Case Detail Modal -->
+  <div class="modal" id="detail-modal" hidden>
+    <div class="surface" role="dialog" aria-label="Contract case detail" aria-modal="true">
+      <button id="close-detail" class="tab" style="float:right">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Case Unavailable Modal -->
+  <div class="modal" id="unavailable-modal" hidden>
+    <div class="surface" role="alertdialog" aria-modal="true">
+      <div class="eyebrow">CANONICAL DEPLOYMENT REQUIRED</div>
+      <h2>Case writes are disabled</h2>
+      <p class="muted">The browser could not verify that write functionality is available. Review the canonical case in the On-chain workspace. Example records are never blockchain transactions.</p>
+      <button id="close-unavailable" class="cta">Understood</button>
+    </div>
+  </div>
+
+  <script>
+    window.APP = {
+      tagline: 'Shift policy and overtime evidence',
+      subtitle: 'Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.',
+      view: ['Dashboard', 'Schedule', 'Claims', 'Policies', 'Evidence', 'Audit', 'Network'],
+      label: 'SHIFTFAIR'
+    };
+    window.CONTRACT_ADDRESS = '0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd';
+    window.CONTRACT_SOURCE_SHA256 = '958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5';
+    window.RELEASE_QUALIFIED = true;
+    document.getElementById("write-gate-status").textContent = window.RELEASE_QUALIFIED ? "Wallet writes qualified" : "Wallet writes locked";
+  </script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

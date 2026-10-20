@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-19T06:56:41.173Z",
+  "generatedAt": "2026-10-20T18:20:56.298Z",
   "app": "ShiftFair",
-  "url": "https://shiftfair-genlayer.vercel.app",
+  "url": "http://127.0.0.1:4183",
   "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
   "chainId": 61999,
   "caseId": "BROWSER-LIFECYCLE-1792362857919-ShiftFair",
