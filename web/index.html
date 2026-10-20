@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <!-- Nudge-Folio Canvas Ruler -->
+  <!-- Nudge-Folio Measurement Ruler -->
   <div class="canvas-ruler" aria-hidden="true">
     <div class="ruler-tick"><span>0</span></div>
     <div class="ruler-tick"><span>100</span></div>
@@ -28,13 +28,12 @@
   </div>
 
   <div class="layout">
+    <!-- Floating Capsule Navbar matching Nudge-Folio -->
     <aside class="sidebar">
-      <div class="logo">
+      <div class="logo" id="nav-brand-logo">
         <div class="logo-mark">◷</div>
-        <div class="logo-text">
-          <strong>SHIFTFAIR</strong>
-          <small class="version-tag">GENLAYER V4</small>
-        </div>
+        <strong>SHIFTFAIR</strong>
+        <small class="version-tag">GENLAYER V4</small>
       </div>
       <div>
         <div class="eyebrow" style="margin:0 14px 17px">Workspace</div>
@@ -90,51 +89,24 @@
         </div>
       </div>
 
-      <!-- Nudge-Folio Hero with Selection Box & Stickers -->
-      <div class="nudge-hero-container">
-        <div class="selection-box">
-          <div class="selection-tag">SHIFTFAIR · STUDIONET 61999 [SELECTION: 1280 × 640]</div>
-          <div class="selection-handle top-left"></div>
-          <div class="selection-handle top-right"></div>
-          <div class="selection-handle bottom-left"></div>
-          <div class="selection-handle bottom-right"></div>
-          
-          <!-- Angled Pastel Stickers -->
-          <div class="nudge-sticker sticker-yellow" style="top:-14px; right: 210px;">✦ GenLayer Studionet 61999</div>
-          <div class="nudge-sticker sticker-mint" style="top: -12px; right: 18px;">⚡ Multi-Validator Consensus</div>
-          <div class="nudge-sticker sticker-pink" style="bottom: -14px; left: 24px;">⏱️ Capped Shift Minutes</div>
-
-          <!-- Designer cursors -->
-          <div class="cursor-badge cursor-blue" style="top: 24px; right: 30px;">
-            <span class="cursor-pointer">▲</span> Contract: 0xdB74...03Fd
-          </div>
-          <div class="cursor-badge cursor-orange" style="bottom: 24px; right: 40px;">
-            <span class="cursor-pointer">▲</span> Consensus: MAJORITY_AGREE
-          </div>
-
-          <div class="hero">
-            <div class="hero-content">
-              <div class="eyebrow">INTELLIGENT CONTRACT POLICY ARBITRATION</div>
-              <h1 id="hero-title">Shift policy and overtime evidence</h1>
-              <p id="hero-subtitle">Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.</p>
-            </div>
-            <div class="hero-actions">
-              <button class="cta" id="primary-action">Create shift claim →</button>
-              <button class="tab hero-wallet-cta" id="hero-wallet-btn">Connect Wallet</button>
-            </div>
-          </div>
+      <div class="hero" id="hero-area" style="display:none">
+        <div>
+          <div class="eyebrow">INTELLIGENT CONTRACT DISPUTE RESOLUTION</div>
+          <h1 id="hero-title">Shift policy and overtime evidence</h1>
+          <p id="hero-subtitle">Deterministic shift claims resolved against frozen work rules and attested attendance records.</p>
         </div>
+        <button class="cta" id="primary-action">Create shift claim →</button>
       </div>
 
       <section id="main-content" aria-live="polite"></section>
 
-      <footer style="margin:32px 0 15px" class="footnote">
-        GENLAYER / SHIFTFAIR · Case details come from the deployed contract. Attestors prove signer attribution, not issuer identity or document truth.
+      <footer style="margin:48px 0 20px" class="footnote">
+        GENLAYER / SHIFTFAIR · Intelligent Gig Economy & Shift Dispute Resolution Contract on Studionet. Attestors prove signer attribution, not real-world identity or document truth.
       </footer>
     </main>
   </div>
 
-  <!-- Global Web3 Wallet Modal -->
+  <!-- Web3 Wallet Modal -->
   <div class="modal" id="wallet-modal" hidden>
     <div class="surface wallet-modal-surface" role="dialog" aria-label="Web3 Wallet Details" aria-modal="true">
       <div class="modal-header">
@@ -153,7 +125,7 @@
     </div>
   </div>
 
-  <!-- Case Unavailable Modal -->
+  <!-- Writes Disabled Modal -->
   <div class="modal" id="unavailable-modal" hidden>
     <div class="surface" role="alertdialog" aria-modal="true">
       <div class="eyebrow">CANONICAL DEPLOYMENT REQUIRED</div>
