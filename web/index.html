@@ -30,7 +30,7 @@
   <div class="layout">
     <!-- Floating Capsule Navbar matching Nudge-Folio -->
     <aside class="sidebar">
-      <div class="logo" id="nav-brand-logo">
+      <div class="logo" id="nav-brand-logo" title="ShiftFair Protocol">
         <div class="logo-mark">◷</div>
         <strong>SHIFTFAIR</strong>
         <small class="version-tag">GENLAYER V4</small>
@@ -38,7 +38,13 @@
       <div>
         <div class="eyebrow" style="margin:0 14px 17px">Workspace</div>
         <nav aria-label="Primary navigation">
-          <button aria-label="Dashboard" title="Dashboard" data-page="Dashboard">
+          <button aria-label="Overview" title="Landing Page: Overview & Protocol Explanation" data-page="Overview">
+            <span class="dot">✦</span><span class="nav-label">Overview</span>
+          </button>
+          <button class="nav-enter-app-btn" id="nav-enter-app-btn" title="Enter ShiftFair Workspace" data-page="Dashboard">
+            <span>⚡</span><span>Enter App</span>
+          </button>
+          <button aria-label="Dashboard" title="Workspace Dashboard" data-page="Dashboard">
             <span class="dot">◷</span><span class="nav-label">Dashboard</span>
           </button>
           <button aria-label="Schedule" title="Schedule" data-page="Schedule">
@@ -76,7 +82,10 @@
 
     <main class="main">
       <div class="top">
-        <div class="crumb">Workspace / <b id="page-name">Dashboard</b></div>
+        <div class="crumb" id="header-crumb">
+          <button id="back-to-landing-btn" class="back-to-landing-btn" style="display:none">← Landing Page</button>
+          <span id="crumb-trail">Workspace / <b id="page-name">Overview</b></span>
+        </div>
         <div class="tools" id="header-tools">
           <div class="network-badge" id="global-network-badge" title="Target Network: GenLayer Studionet (61999)">
             <span class="signal-dot" id="global-signal-dot"></span>
@@ -139,7 +148,7 @@
     window.APP = {
       tagline: 'Shift policy and overtime evidence',
       subtitle: 'Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.',
-      view: ['Dashboard', 'Schedule', 'Claims', 'Policies', 'Evidence', 'Audit', 'Network'],
+      view: ['Overview', 'Dashboard', 'Schedule', 'Claims', 'Policies', 'Evidence', 'Audit', 'Network'],
       label: 'SHIFTFAIR'
     };
     window.CONTRACT_ADDRESS = '0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd';
