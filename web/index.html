@@ -8,103 +8,68 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <!-- Nudge-Folio Measurement Ruler -->
-  <div class="canvas-ruler" aria-hidden="true">
-    <div class="ruler-tick"><span>0</span></div>
-    <div class="ruler-tick"><span>100</span></div>
-    <div class="ruler-tick"><span>200</span></div>
-    <div class="ruler-tick"><span>300</span></div>
-    <div class="ruler-tick"><span>400</span></div>
-    <div class="ruler-tick"><span>500</span></div>
-    <div class="ruler-tick"><span>600</span></div>
-    <div class="ruler-tick"><span>700</span></div>
-    <div class="ruler-tick"><span>800</span></div>
-    <div class="ruler-tick"><span>900</span></div>
-    <div class="ruler-tick"><span>1000</span></div>
-    <div class="ruler-tick"><span>1100</span></div>
-    <div class="ruler-tick"><span>1200</span></div>
-    <div class="ruler-tick"><span>1300</span></div>
-    <div class="ruler-tick"><span>1400</span></div>
-  </div>
-
-  <div class="layout">
-    <!-- Floating Capsule Navbar matching Nudge-Folio -->
-    <aside class="sidebar">
+  <div class="layout landing-mode" id="app-layout">
+    <!-- Floating Capsule Navbar -->
+    <aside class="sidebar" id="main-sidebar">
       <div class="logo" id="nav-brand-logo" title="ShiftFair Protocol">
         <div class="logo-mark">◷</div>
         <strong>SHIFTFAIR</strong>
-        <small class="version-tag">GENLAYER V4</small>
       </div>
-      <div>
-        <div class="eyebrow" style="margin:0 14px 17px">Workspace</div>
-        <nav aria-label="Primary navigation">
-          <button aria-label="Overview" title="Landing Page: Overview & Protocol Explanation" data-page="Overview">
-            <span class="dot">✦</span><span class="nav-label">Overview</span>
-          </button>
-          <button class="nav-enter-app-btn" id="nav-enter-app-btn" title="Enter ShiftFair Workspace" data-page="Dashboard">
-            <span>⚡</span><span>Enter App</span>
-          </button>
-          <button aria-label="Dashboard" title="Workspace Dashboard" data-page="Dashboard">
-            <span class="dot">◷</span><span class="nav-label">Dashboard</span>
-          </button>
-          <button aria-label="Schedule" title="Schedule" data-page="Schedule">
-            <span class="dot">◷</span><span class="nav-label">Schedule</span>
-          </button>
-          <button aria-label="Claims" title="Claims" data-page="Claims">
-            <span class="dot">◷</span><span class="nav-label">Claims</span>
-          </button>
-          <button aria-label="Policies" title="Policies" data-page="Policies">
-            <span class="dot">◷</span><span class="nav-label">Policies</span>
-          </button>
-          <button aria-label="Evidence" title="Evidence" data-page="Evidence">
-            <span class="dot">◷</span><span class="nav-label">Evidence</span>
-          </button>
-          <button aria-label="Audit" title="Audit" data-page="Audit">
-            <span class="dot">◷</span><span class="nav-label">Audit</span>
-          </button>
-          <button aria-label="On-chain" title="On-chain" data-page="On-chain">
-            <span class="dot">◇</span><span class="nav-label">On-chain</span>
-          </button>
-          <button aria-label="Network" title="Network" data-page="Network">
-            <span class="dot">◷</span><span class="nav-label">Network</span>
-          </button>
-        </nav>
+      
+      <!-- Landing View Button: ONLY Enter App -->
+      <div class="landing-nav-group" id="landing-nav-group">
+        <button class="nav-enter-app-btn" id="nav-enter-app-btn" title="Enter ShiftFair Workspace">
+          <span>⚡ Enter App</span>
+        </button>
       </div>
-      <div class="grow"></div>
-      <div class="side-bottom">
-        <div class="eyebrow" style="margin-bottom:12px">Chain configuration</div>
-        <div class="network-tag" id="sidebar-network-tag">
-          <span class="signal" id="sidebar-signal"></span>
-          <span>Studionet · 61999<br/><span id="write-gate-status">Wallet writes qualified</span></span>
+
+      <!-- Workspace Navigation: Only visible inside the app -->
+      <nav aria-label="Primary navigation" id="workspace-nav" style="display:none">
+        <button aria-label="Dashboard" title="Workspace Dashboard" data-page="Dashboard">
+          <span class="dot">◷</span><span class="nav-label">Dashboard</span>
+        </button>
+        <button aria-label="Schedule" title="Schedule" data-page="Schedule">
+          <span class="dot">◷</span><span class="nav-label">Schedule</span>
+        </button>
+        <button aria-label="Claims" title="Claims" data-page="Claims">
+          <span class="dot">◷</span><span class="nav-label">Claims</span>
+        </button>
+        <button aria-label="Policies" title="Policies" data-page="Policies">
+          <span class="dot">◷</span><span class="nav-label">Policies</span>
+        </button>
+        <button aria-label="Evidence" title="Evidence" data-page="Evidence">
+          <span class="dot">◷</span><span class="nav-label">Evidence</span>
+        </button>
+        <button aria-label="Audit" title="Audit" data-page="Audit">
+          <span class="dot">◷</span><span class="nav-label">Audit</span>
+        </button>
+        <button aria-label="On-chain" title="On-chain" data-page="On-chain">
+          <span class="dot">◇</span><span class="nav-label">On-chain</span>
+        </button>
+        <button aria-label="Network" title="Network" data-page="Network">
+          <span class="dot">◷</span><span class="nav-label">Network</span>
+        </button>
+      </nav>
+
+      <!-- Workspace Header Actions: Back to Landing, Network, Connect Wallet -->
+      <div class="workspace-header-actions" id="workspace-header-actions" style="display:none">
+        <button id="nav-back-to-landing" class="back-to-landing-btn" title="Return to Landing Page">← Landing Page</button>
+        <div class="network-badge" id="global-network-badge" title="Target Network: GenLayer Studionet (61999)">
+          <span class="signal-dot" id="global-signal-dot"></span>
+          <span id="global-network-name">Studionet · 61999</span>
         </div>
+        <button class="wallet-connect-btn" id="global-wallet-btn" type="button" aria-label="Connect Web3 Wallet">
+          <span class="wallet-icon">⬡</span>
+          <span id="global-wallet-label">Connect Wallet</span>
+        </button>
       </div>
     </aside>
 
     <main class="main">
-      <div class="top">
+      <div class="top" id="workspace-subtop" style="display:none">
         <div class="crumb" id="header-crumb">
-          <button id="back-to-landing-btn" class="back-to-landing-btn" style="display:none">← Landing Page</button>
-          <span id="crumb-trail">Workspace / <b id="page-name">Overview</b></span>
+          <span id="crumb-trail">ShiftFair Workspace / <b id="page-name">Dashboard</b></span>
         </div>
-        <div class="tools" id="header-tools">
-          <div class="network-badge" id="global-network-badge" title="Target Network: GenLayer Studionet (61999)">
-            <span class="signal-dot" id="global-signal-dot"></span>
-            <span id="global-network-name">Studionet · 61999</span>
-          </div>
-          <button class="wallet-connect-btn" id="global-wallet-btn" type="button" aria-label="Connect Web3 Wallet">
-            <span class="wallet-icon">⬡</span>
-            <span id="global-wallet-label">Connect Wallet</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="hero" id="hero-area" style="display:none">
-        <div>
-          <div class="eyebrow">INTELLIGENT CONTRACT DISPUTE RESOLUTION</div>
-          <h1 id="hero-title">Shift policy and overtime evidence</h1>
-          <p id="hero-subtitle">Deterministic shift claims resolved against frozen work rules and attested attendance records.</p>
-        </div>
-        <button class="cta" id="primary-action">Create shift claim →</button>
       </div>
 
       <section id="main-content" aria-live="polite"></section>
@@ -154,7 +119,6 @@
     window.CONTRACT_ADDRESS = '0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd';
     window.CONTRACT_SOURCE_SHA256 = '958bc9996945b9064abd98b7a712b799dc7d9905de89b2ca7305b8e0cefaf2d5';
     window.RELEASE_QUALIFIED = true;
-    document.getElementById("write-gate-status").textContent = window.RELEASE_QUALIFIED ? "Wallet writes qualified" : "Wallet writes locked";
   </script>
   <script type="module" src="/app.js"></script>
 </body>
