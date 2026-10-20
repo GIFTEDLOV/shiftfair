@@ -450,7 +450,13 @@ function nav(name, doRefresh = true) {
   
   $('main-content').innerHTML = render(name);
   bind();
-  history.replaceState({}, '', '#' + encodeURIComponent(name.toLowerCase()));
+  if (isLanding) {
+    if (location.pathname.startsWith('/app')) history.pushState({}, '', '/');
+    history.replaceState({}, '', '#' + encodeURIComponent(name.toLowerCase()));
+  } else {
+    if (!location.pathname.startsWith('/app')) history.pushState({}, '', '/app');
+    history.replaceState({}, '', '/app#' + encodeURIComponent(name.toLowerCase()));
+  }
   if (doRefresh && name !== 'On-chain' && !live.checkedAt && !live.loading) void refresh();
 }
 
@@ -720,4 +726,17 @@ $('close-unavailable')?.addEventListener('click', () => { $('unavailable-modal')
 $('close-detail')?.addEventListener('click', () => { $('detail-modal').hidden = true; });
 
 const fromHash = decodeURIComponent(location.hash.slice(1)).toLowerCase();
-nav([...APP.view, 'On-chain'].find(x => x.toLowerCase() === fromHash) || 'Overview');
+const isAppPath = location.pathname.startsWith('/app');
+if (isAppPath) {
+  nav([...APP.view, 'On-chain'].find(x => x.toLowerCase() === fromHash) || 'Dashboard');
+} else {
+  nav([...APP.view, 'On-chain'].find(x => x.toLowerCase() === fromHash) || 'Overview');
+}
+
+window.addEventListener('popstate', () => {
+  if (location.pathname.startsWith('/app')) {
+    if (page === 'Overview') nav('Dashboard', false);
+  } else {
+    if (page !== 'Overview') nav('Overview', false);
+  }
+});
