@@ -175,8 +175,8 @@ function renderLandingPage(cases, counts) {
             Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.
           </p>
           <div class="hero-cta-group">
-            <button class="hero-btn-primary" id="hero-create-claim">Create shift claim →</button>
-            <button class="hero-btn-secondary" id="hero-connect-wallet">Connect Wallet</button>
+            <button class="hero-btn-primary" id="hero-enter-app">⚡ Enter App Workspace →</button>
+            <button class="hero-btn-secondary" id="hero-connect-wallet">Connect Web3 Wallet</button>
             <button class="tab" id="hero-view-registry" style="padding:12px 18px">Explore Case Registry (${counts.total})</button>
           </div>
         </div>
@@ -235,7 +235,7 @@ function renderLandingPage(cases, counts) {
         ${renderCases(recentCases.length ? recentCases : cases.slice(0, 4))}
         <div class="toolbar" style="margin-top:16px">
           ${refreshButton}
-          <button id="view-all-claims-btn" class="cta">View all canonical claims (${cases.length}) →</button>
+          <button id="view-all-claims-btn" class="cta">Enter Claims Workspace (${cases.length}) →</button>
         </div>
       </section>
 
@@ -262,11 +262,99 @@ function renderLandingPage(cases, counts) {
           </p>
         </div>
         <div class="contact-btn-group">
-          <button class="contact-btn-white" id="landing-launch-workspace">Launch On-Chain Claim Workspace →</button>
+          <button class="contact-btn-white" id="landing-launch-workspace">Enter App Workspace Now →</button>
           <button class="contact-btn-outline" id="landing-wallet-trigger">Connect Web3 Wallet</button>
           <a class="contact-btn-outline" href="https://explorer-studio.genlayer.com/address/${esc(ADDRESS)}" target="_blank" rel="noopener noreferrer">Explorer ↗</a>
         </div>
       </section>
+    </div>
+  `;
+}
+
+function renderWorkspaceDashboard(cases, counts) {
+  const safeEmpty = loadingNote();
+  const recent = cases.slice().reverse().slice(0, 5);
+  return progress() + `
+    <div class="workspace-dashboard">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">SHIFTFAIR WORKSPACE</div>
+          <h2 style="font-size:24px; margin-top:4px">Dispute Resolution Desk</h2>
+          <p class="muted" style="margin:4px 0 0">Active GenLayer Studionet workspace for submitting shift claims, freezing work rules, attesting attendance proofs, and challenging determinations.</p>
+        </div>
+        <div class="toolbar" style="margin:0">
+          <button id="dash-create-claim" class="cta">+ New Shift Claim</button>
+          <button id="dash-open-onchain" class="tab">On-Chain Desk</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="eyebrow">CANONICAL CASES</div>
+          <div class="value">${counts.total}</div>
+          <small>Recorded on-chain</small>
+        </div>
+        <div class="stat">
+          <div class="eyebrow">FROZEN RULES</div>
+          <div class="value">${counts.frozen}</div>
+          <small>Policy terms locked</small>
+        </div>
+        <div class="stat">
+          <div class="eyebrow">GENVM ASSESSED</div>
+          <div class="value">${counts.assessed}</div>
+          <small>Evaluated by AI consensus</small>
+        </div>
+        <div class="stat">
+          <div class="eyebrow">CHALLENGES</div>
+          <div class="value">${counts.challenged}</div>
+          <small>Second-round reviews</small>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="surface">
+          <div class="section-head">
+            <h3>Recent Active Claims & Disputes</h3>
+            <button id="dash-view-all-claims" class="tab">View All Registry (${cases.length}) →</button>
+          </div>
+          ${safeEmpty}
+          <div class="case-list">
+            ${recent.length ? renderCases(recent) : '<div class="blank">No cases recorded yet.</div>'}
+          </div>
+        </div>
+
+        <div class="surface">
+          <div class="section-head">
+            <h3>Quick On-Chain Actions</h3>
+          </div>
+          <div class="risk">
+            <div class="risk-item">
+              <b>1. Submit New Shift Claim</b>
+              <p>Initialize a new dispute claim with employee hours, employer counterparty, and designated attestor address.</p>
+              <button id="dash-quick-claim" class="cta" style="margin-top:8px;padding:8px 14px;font-size:12px">Launch Claim Form →</button>
+            </div>
+            <div class="risk-item">
+              <b>2. Provide Counterparty Consent</b>
+              <p>Counterparties must sign consent to lock baseline shift policies and allow evidence ingestion.</p>
+              <button id="dash-quick-consent" class="tab" style="margin-top:8px;padding:8px 14px;font-size:12px">Consent Workspace →</button>
+            </div>
+            <div class="risk-item">
+              <b>3. Attest Verified Attendance</b>
+              <p>Designated third-party attestors sign attendance digests with cryptographic timestamp binding.</p>
+              <button id="dash-quick-evidence" class="tab" style="margin-top:8px;padding:8px 14px;font-size:12px">Evidence Desk →</button>
+            </div>
+            <div class="risk-item">
+              <b>4. Review AI Consensus & Challenges</b>
+              <p>Inspect strict validator fact vectors and submit appeals within the challenge window.</p>
+              <button id="dash-quick-audit" class="tab" style="margin-top:8px;padding:8px 14px;font-size:12px">Audit Lineage →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar" style="margin-top:20px">
+        ${refreshButton}
+      </div>
     </div>
   `;
 }
@@ -283,8 +371,12 @@ function render(name) {
     challenged: cases.filter(x => (x.challenges || []).length > 0).length
   };
   
-  if (name === APP.view[0]) {
+  if (name === 'Overview' || name === APP.view[0]) {
     return renderLandingPage(cases, counts);
+  }
+
+  if (name === 'Dashboard') {
+    return renderWorkspaceDashboard(cases, counts);
   }
   
   if (['Cases', 'Claims'].includes(name)) {
@@ -364,8 +456,13 @@ function nav(name, doRefresh = true) {
   document.querySelectorAll('nav button').forEach(e => e.classList.toggle('active', e.dataset.page === name));
   $('page-name').textContent = name;
   
+  const backBtn = $('back-to-landing-btn');
+  if (backBtn) {
+    backBtn.style.display = name === 'Overview' ? 'none' : 'inline-flex';
+  }
+  
   if ($('hero-area')) {
-    $('hero-area').style.display = name === APP.view[0] ? 'none' : 'none'; // landing page handles hero on Dashboard
+    $('hero-area').style.display = 'none';
   }
   
   $('main-content').innerHTML = render(name);
@@ -605,13 +702,24 @@ function bind() {
     document.querySelectorAll('#filtered-cases [data-live-case]').forEach(n => n.addEventListener('click', () => void detail(n.dataset.liveCase)));
   });
 
-  // Landing Page CTAs
-  $('hero-create-claim')?.addEventListener('click', () => nav('On-chain'));
+  // Landing Page & Enter App CTAs
+  $('nav-enter-app-btn')?.addEventListener('click', () => nav('Dashboard'));
+  $('hero-enter-app')?.addEventListener('click', () => nav('Dashboard'));
+  $('landing-launch-workspace')?.addEventListener('click', () => nav('Dashboard'));
+  $('back-to-landing-btn')?.addEventListener('click', () => nav('Overview'));
   $('hero-connect-wallet')?.addEventListener('click', handleWalletAction);
   $('hero-view-registry')?.addEventListener('click', () => nav('Claims'));
   $('view-all-claims-btn')?.addEventListener('click', () => nav('Claims'));
-  $('landing-launch-workspace')?.addEventListener('click', () => nav('On-chain'));
   $('landing-wallet-trigger')?.addEventListener('click', handleWalletAction);
+
+  // Dashboard Workspace triggers
+  $('dash-create-claim')?.addEventListener('click', () => nav('On-chain'));
+  $('dash-open-onchain')?.addEventListener('click', () => nav('On-chain'));
+  $('dash-view-all-claims')?.addEventListener('click', () => nav('Claims'));
+  $('dash-quick-claim')?.addEventListener('click', () => nav('On-chain'));
+  $('dash-quick-consent')?.addEventListener('click', () => nav('On-chain'));
+  $('dash-quick-evidence')?.addEventListener('click', () => nav('Evidence'));
+  $('dash-quick-audit')?.addEventListener('click', () => nav('Audit'));
 }
 
 // Global Wallet Listeners
@@ -621,10 +729,10 @@ $('close-wallet-modal')?.addEventListener('click', () => { $('wallet-modal').hid
 
 // Navigation & Modals
 document.querySelectorAll('nav button').forEach(e => e.addEventListener('click', () => nav(e.dataset.page)));
-$('nav-brand-logo')?.addEventListener('click', () => nav(APP.view[0]));
+$('nav-brand-logo')?.addEventListener('click', () => nav('Overview'));
 $('primary-action')?.addEventListener('click', () => nav('On-chain'));
 $('close-unavailable')?.addEventListener('click', () => { $('unavailable-modal').hidden = true; });
 $('close-detail')?.addEventListener('click', () => { $('detail-modal').hidden = true; });
 
 const fromHash = decodeURIComponent(location.hash.slice(1)).toLowerCase();
-nav([...APP.view, 'On-chain'].find(x => x.toLowerCase() === fromHash) || APP.view[0]);
+nav([...APP.view, 'On-chain'].find(x => x.toLowerCase() === fromHash) || 'Overview');
