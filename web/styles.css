@@ -989,14 +989,34 @@ a {
   .layout {
     padding: 10px 14px 80px;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   .sidebar {
     border-radius: 14px;
     padding: 8px 12px;
     flex-wrap: wrap;
     gap: 8px;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  #workspace-header-actions,
+  .workspace-header-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .workspace-header-actions .back-to-landing-btn,
+  .workspace-header-actions .network-badge,
+  .workspace-header-actions .wallet-connect-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+    flex: 0 1 auto;
   }
   .sidebar nav {
     width: 100%;
