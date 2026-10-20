@@ -147,42 +147,21 @@ function renderLandingPage(cases, counts) {
   
   return `
     <div class="nudge-landing">
-      <!-- Section 1: Hero Canvas with Selection Box & Stickers -->
+      <!-- Section 1: Clean Focused Hero (Excess design removed) -->
       <section class="nudge-hero-section">
-        <div class="nudge-selection-box">
-          <div class="selection-tag">SHIFTFAIR · STUDIONET 61999 [SELECTION: 1280 × 640]</div>
-          <div class="selection-handle top-left"></div>
-          <div class="selection-handle top-right"></div>
-          <div class="selection-handle bottom-left"></div>
-          <div class="selection-handle bottom-right"></div>
-          
-          <!-- Tilted Pastel Stickers -->
-          <div class="nudge-sticker sticker-yellow" style="top:-14px; right: 230px;">✦ GenLayer Studionet 61999</div>
-          <div class="nudge-sticker sticker-mint" style="top: -12px; right: 24px;">⚡ Multi-Validator Consensus</div>
-          <div class="nudge-sticker sticker-pink" style="bottom: -14px; left: 28px;">⏱️ Capped Shift Minutes</div>
-
-          <!-- Collab Cursor Badges -->
-          <div class="cursor-badge cursor-blue" style="top: 28px; right: 36px;">
-            <span class="cursor-pointer">▲</span> Contract: 0xdB74...03Fd
-          </div>
-          <div class="cursor-badge cursor-orange" style="bottom: 28px; right: 48px;">
-            <span class="cursor-pointer">▲</span> Consensus: MAJORITY_AGREE
-          </div>
-
-          <div class="eyebrow" style="margin-bottom:8px">AUTONOMOUS GIG & SHIFT RESOLUTION</div>
+        <div class="clean-hero-box">
+          <div class="eyebrow" style="margin-bottom:12px; color:var(--nudge-blue)">INTELLIGENT CONTRACT DISPUTE RESOLUTION</div>
           <h1 class="hero-headline-giant">Shift policy and overtime evidence</h1>
           <p class="hero-subhead">
-            Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic.
+            Deterministic shift claims resolved against frozen work rules and attested attendance records, capped by immutable contract arithmetic on GenLayer Studionet.
           </p>
           <div class="hero-cta-group">
-            <button class="hero-btn-primary" id="hero-enter-app">⚡ Enter App Workspace →</button>
-            <button class="hero-btn-secondary" id="hero-connect-wallet">Connect Web3 Wallet</button>
-            <button class="tab" id="hero-view-registry" style="padding:12px 18px">Explore Case Registry (${counts.total})</button>
+            <button class="hero-btn-primary" id="hero-enter-app">⚡ Enter App →</button>
           </div>
         </div>
       </section>
 
-      <!-- Section 2: "about shiftfair / what's up" -->
+      <!-- Section 2: "About ShiftFair / Protocol Pillars" -->
       <section class="nudge-about-section">
         <div class="nudge-about-sticky">
           <span class="about-badge">about shiftfair!</span>
@@ -233,9 +212,8 @@ function renderLandingPage(cases, counts) {
         </div>
         ${safeEmpty}
         ${renderCases(recentCases.length ? recentCases : cases.slice(0, 4))}
-        <div class="toolbar" style="margin-top:16px">
-          ${refreshButton}
-          <button id="view-all-claims-btn" class="cta">Enter Claims Workspace (${cases.length}) →</button>
+        <div class="toolbar" style="margin-top:16px; justify-content:flex-end">
+          <button id="view-all-claims-btn" class="cta">Enter App to Explore Full Registry (${cases.length}) →</button>
         </div>
       </section>
 
@@ -253,18 +231,16 @@ function renderLandingPage(cases, counts) {
         ${renderConsensusMatrix(recentCases[0] || cases[0], null)}
       </section>
 
-      <!-- Section 5: "LET'S TALK / ON-CHAIN ACTION & CONTACT" -->
+      <!-- Section 5: "ON-CHAIN ACTION & ENTER APP" -->
       <section class="nudge-contact-card">
         <div>
           <h2>Ready to arbitrate a shift dispute?</h2>
           <p>
-            Connect your Web3 wallet to create a new shift claim, sign a policy consent, submit attendance evidence, or challenge an existing assessment.
+            Enter the ShiftFair workspace to create a new shift claim, sign policy consent, submit attendance evidence, or challenge an existing determination.
           </p>
         </div>
         <div class="contact-btn-group">
-          <button class="contact-btn-white" id="landing-launch-workspace">Enter App Workspace Now →</button>
-          <button class="contact-btn-outline" id="landing-wallet-trigger">Connect Web3 Wallet</button>
-          <a class="contact-btn-outline" href="https://explorer-studio.genlayer.com/address/${esc(ADDRESS)}" target="_blank" rel="noopener noreferrer">Explorer ↗</a>
+          <button class="contact-btn-white" id="landing-launch-workspace">Enter App Now →</button>
         </div>
       </section>
     </div>
@@ -453,12 +429,19 @@ function nav(name, doRefresh = true) {
     live.loading = false;
   }
   page = name;
-  document.querySelectorAll('nav button').forEach(e => e.classList.toggle('active', e.dataset.page === name));
-  $('page-name').textContent = name;
+  const isLanding = (name === 'Overview');
+  const appLayout = document.getElementById('app-layout') || document.querySelector('.layout');
+  if (appLayout) {
+    appLayout.className = isLanding ? 'layout landing-mode' : 'layout workspace-mode';
+  }
   
-  const backBtn = $('back-to-landing-btn');
+  document.querySelectorAll('nav button').forEach(e => e.classList.toggle('active', e.dataset.page === name));
+  const pageNameEl = $('page-name');
+  if (pageNameEl) pageNameEl.textContent = name;
+  
+  const backBtn = $('back-to-landing-btn') || $('nav-back-to-landing');
   if (backBtn) {
-    backBtn.style.display = name === 'Overview' ? 'none' : 'inline-flex';
+    backBtn.style.display = isLanding ? 'none' : 'inline-flex';
   }
   
   if ($('hero-area')) {
@@ -729,6 +712,8 @@ $('close-wallet-modal')?.addEventListener('click', () => { $('wallet-modal').hid
 
 // Navigation & Modals
 document.querySelectorAll('nav button').forEach(e => e.addEventListener('click', () => nav(e.dataset.page)));
+$('nav-enter-app-btn')?.addEventListener('click', () => nav('Dashboard'));
+$('nav-back-to-landing')?.addEventListener('click', () => nav('Overview'));
 $('nav-brand-logo')?.addEventListener('click', () => nav('Overview'));
 $('primary-action')?.addEventListener('click', () => nav('On-chain'));
 $('close-unavailable')?.addEventListener('click', () => { $('unavailable-modal').hidden = true; });

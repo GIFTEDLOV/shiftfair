@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-20T19:08:02.983Z",
+  "generatedAt": "2026-10-20T19:46:45.933Z",
   "app": "ShiftFair",
   "contract": "0xdB7419b175bb5Ff63343f8a9Ac7f42f11feA03Fd",
   "chainId": 61999,
@@ -14,7 +14,7 @@
     "document": 390,
     "body": 390,
     "navClient": 336,
-    "navScroll": 934
+    "navScroll": 710
   },
   "wrongNetwork": "PASS",
   "accountChanged": "PASS",
